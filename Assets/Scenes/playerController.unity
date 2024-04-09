@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 336461225}
   - component: {fileID: 336461224}
   m_Layer: 3
-  m_Name: Cube
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,6 +731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8847c5834e31847ab5107c9abc8002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canInteract: 1
+  interactDelay: 0.3
 --- !u!1 &911447990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,6 +1042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1621002903}
+  animBoolName: Open
 --- !u!1 &1660661104
 GameObject:
   m_ObjectHideFlags: 0
