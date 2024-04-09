@@ -6,7 +6,8 @@ using UnityEngine;
 public class playerInteraction : MonoBehaviour
 {
     private Transform CameraPos;
-
+    [SerializeField]private bool canInteract = true;
+    [SerializeField][Range(0.1f, 1)] private float interactDelay = .1f;
     private void Start()
     {
         CameraPos = Camera.main.transform;
@@ -18,9 +19,21 @@ public class playerInteraction : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E)) 
         {
-            checkObject();
-            GameEventBus.Publish(GameEventsType.INTERACT);
+            if (canInteract)
+            {
+                canInteract = false;
+                StartCoroutine(newInteractDelay());
+                checkObject();
+                //if(checkObject() == null) { return; }
+                GameEventBus.Publish(GameEventsType.INTERACT);
+            }
         }
+    }
+
+    private IEnumerator newInteractDelay()
+    {
+        canInteract = true;
+        yield return new WaitForSeconds(interactDelay);
     }
 
     public GameObject checkObject()
@@ -28,7 +41,8 @@ public class playerInteraction : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(CameraPos.position, CameraPos.transform.forward, out hit, 5f))
         {
-            if(hit.transform.gameObject != null)
+            //print(hit.transform.name);
+            if (hit.transform.gameObject != null)
             {
                 return hit.transform.gameObject;
             }

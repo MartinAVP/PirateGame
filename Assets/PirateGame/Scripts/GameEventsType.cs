@@ -1,6 +1,5 @@
 public enum GameEventsType
 {
-    COUNTDOWN,
     START,
     PAUSE,
     STOP,
