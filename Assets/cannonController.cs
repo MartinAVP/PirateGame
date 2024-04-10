@@ -27,6 +27,7 @@ public class cannonController : MonoBehaviour
     [SerializeField] private bool hasPlayerSnapped = false;
 
     float cameraCap;
+    float sideWaysCap;
     float mouseSensitivity = 2.8f;
     Vector2 currentMouseDelta;
     Vector2 currentMouseDeltaVelocity;
@@ -44,6 +45,11 @@ public class cannonController : MonoBehaviour
         {
             UpdateMouse();
         }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Fire();
+        }
     }
 
     void UpdateMouse()
@@ -53,12 +59,16 @@ public class cannonController : MonoBehaviour
         currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
 
         cameraCap -= currentMouseDelta.y * mouseSensitivity;
-
-        cameraCap = Mathf.Clamp(cameraCap, -90.0f, 90.0f);
+        cameraCap = Mathf.Clamp(cameraCap, -20.0f, 35.0f);
 
         pivot.localEulerAngles = Vector3.right * cameraCap;
 
-        transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity);
+        sideWaysCap -= currentMouseDelta.x * mouseSensitivity;
+        sideWaysCap = Mathf.Clamp(sideWaysCap, -15f, 15f);
+        //print(sideWaysCap);
+        
+        transform.localEulerAngles = Vector3.up * sideWaysCap;
+        
     }
 
     private void ShootCannon()
@@ -72,6 +82,8 @@ public class cannonController : MonoBehaviour
             hasPlayerSnapped = false;
 
             // Get the player on the right rotation
+            //playerCtrl.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.back);
+            //playerCtrl.gameObject.transform.rotation = Quaternion.LookRotation(CameraLoc.transform.forward);
             //.gameObject.transform.LookAt(CameraLoc);
             //playerInt.getCameraPos().transform.LookAt(CameraLoc);
             //playerInt.gameObject.transform.rotation.x = Quaternion.LookRotation(firePos.position).x;
@@ -102,6 +114,7 @@ public class cannonController : MonoBehaviour
                 // Get the Camera to be Snapped to the Cannon
                 Camera.main.gameObject.transform.position = CameraLoc.transform.position;
                 Camera.main.gameObject.transform.parent = CameraLoc.transform;
+                Camera.main.transform.rotation = new Quaternion(0,0,0,0);
 
                 // Get the player Movement to lock
                 playerCtrl.canMove = false;
