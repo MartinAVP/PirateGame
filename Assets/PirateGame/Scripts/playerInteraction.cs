@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class playerInteraction : MonoBehaviour
 {
-    private Transform CameraPos;
+    [SerializeField]private Transform CameraPos;
+    [SerializeField]private Transform CameraLoc;
     [SerializeField]private bool canInteract = true;
     [SerializeField][Range(0.1f, 1)] private float interactDelay = .1f;
+
+    private bool usingCannon;
     private void Start()
     {
         CameraPos = Camera.main.transform;
-        RaycastHit hit;
-
-
     }
+
+    public Transform getCameraPos(){ return CameraLoc; }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.E)) 
@@ -23,7 +26,7 @@ public class playerInteraction : MonoBehaviour
             {
                 canInteract = false;
                 StartCoroutine(newInteractDelay());
-                checkObject();
+                //checkObject();
                 //if(checkObject() == null) { return; }
                 GameEventBus.Publish(GameEventsType.INTERACT);
             }
@@ -46,6 +49,7 @@ public class playerInteraction : MonoBehaviour
             {
                 return hit.transform.gameObject;
             }
+            else if(hit.transform.gameObject == null) { return null; }
             else { return null; }
         }
 
