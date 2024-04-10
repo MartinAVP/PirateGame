@@ -19,41 +19,96 @@ public class cannonController : MonoBehaviour
     [SerializeField] private Transform firePos;
     [SerializeField] private GameObject cannonProyectile;
 
-    [SerializeField] private playerInteraction playerInt;
+    private playerInteraction playerInt;
+    private playerController playerCtrl;
+
+    [SerializeField] private Transform playerLoc;
     [SerializeField] private Transform CameraLoc;
     [SerializeField] private bool hasPlayerSnapped = false;
+
+    float cameraCap;
+    float mouseSensitivity = 2.8f;
+    Vector2 currentMouseDelta;
+    Vector2 currentMouseDeltaVelocity;
+    [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
 
     private void Start()
     {
         playerInt = FindAnyObjectByType<playerInteraction>();
+        playerCtrl = FindAnyObjectByType<playerController>();
     }
 
     private void FixedUpdate()
     {
-        if(Input.GetKeyUp(KeyCode.P)) 
+        if(hasPlayerSnapped) 
         {
-            
+            UpdateMouse();
         }
+    }
+
+    void UpdateMouse()
+    {
+        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
+
+        cameraCap -= currentMouseDelta.y * mouseSensitivity;
+
+        cameraCap = Mathf.Clamp(cameraCap, -90.0f, 90.0f);
+
+        pivot.localEulerAngles = Vector3.right * cameraCap;
+
+        transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity);
     }
 
     private void ShootCannon()
     {
-        if (playerInt.checkObject() == null) { return; }
-        Debug.Log(playerInt.checkObject().name);
-        if (playerInt.checkObject().transform.parent.gameObject == this.gameObject)
+
+        if (hasPlayerSnapped == true)
         {
-            Debug.Log("Shoot Called");
+            // Player Exit From Cannon
+            
+            // toggle Player Snapped
+            hasPlayerSnapped = false;
+
+            // Get the player on the right rotation
+            //.gameObject.transform.LookAt(CameraLoc);
+            //playerInt.getCameraPos().transform.LookAt(CameraLoc);
+            //playerInt.gameObject.transform.rotation.x = Quaternion.LookRotation(firePos.position).x;
+
+            // Get the Camera to be Snapped to the Player
+            Camera.main.gameObject.transform.position = playerInt.getCameraPos().position;
+            Camera.main.gameObject.transform.parent = playerInt.getCameraPos();
+
+            // Get the player Movement to lock
+            playerCtrl.canMove = true;
+
+            //Debug.Log("Player is no longer snapped to the cannon");
+        }
+
+        else if (playerInt.checkObject() == null) { return; }
+        else if (playerInt.checkObject().transform.parent.gameObject == this.gameObject)
+        {
+            //Debug.Log("Shoot Called");
             if (!hasPlayerSnapped)
             {
                 // togglePlayerSnapped
                 hasPlayerSnapped = true;
 
+                // Get the player to stand at the playerPos;
+                playerCtrl.gameObject.transform.position = playerLoc.position;
+                playerCtrl.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.back);
+
                 // Get the Camera to be Snapped to the Cannon
                 Camera.main.gameObject.transform.position = CameraLoc.transform.position;
                 Camera.main.gameObject.transform.parent = CameraLoc.transform;
-                Debug.Log("Player is now snapped to the cannon");
+
+                // Get the player Movement to lock
+                playerCtrl.canMove = false;
+
+                //Debug.Log("Player is now snapped to the cannon");
             }
-            else
+/*            else
             {
                 // toggle Player Snapped
                 hasPlayerSnapped = false;
@@ -61,12 +116,12 @@ public class cannonController : MonoBehaviour
                 // Get the Camera to be Snapped to the Player
                 Camera.main.gameObject.transform.position = playerInt.getCameraPos().position;
                 Camera.main.gameObject.transform.parent = playerInt.getCameraPos();
-                Debug.Log("Player is no longer snapped to the cannon");
-            }
-        }
-        else
-        {
-            print("Player tried interacting with air");
+
+                // Get the player Movement to lock
+                playerCtrl.canMove = true;
+
+                //Debug.Log("Player is no longer snapped to the cannon");
+            }*/
         }
     }
 

@@ -47,7 +47,14 @@ public class playerInteraction : MonoBehaviour
             //print(hit.transform.name);
             if (hit.transform.gameObject != null)
             {
-                return hit.transform.gameObject;
+                if (hit.transform.tag == "Interactable")
+                {
+                    return hit.transform.gameObject;
+                }
+                else
+                {
+                    return null;
+                }
             }
             else if(hit.transform.gameObject == null) { return null; }
             else { return null; }

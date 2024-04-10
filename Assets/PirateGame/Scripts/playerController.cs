@@ -14,6 +14,8 @@ public class playerController : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
 
+    [HideInInspector] public bool canMove = true;
+
     public float jumpHeight = 6f;
     float velocityY;
     bool isGrounded;
@@ -36,12 +38,17 @@ public class playerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = true;
         }
+
+        canMove = true;
     }
 
     void Update()
     {
-        UpdateMouse();
-        UpdateMove();
+        if (canMove == true) 
+        {
+            UpdateMouse();
+            UpdateMove();
+        }
     }
 
     void UpdateMouse()
