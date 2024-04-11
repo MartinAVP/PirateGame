@@ -155,7 +155,5 @@ public class cannonController : MonoBehaviour
         // adds the Force to the cannon Ball.
         shotFired.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back * 30f, ForceMode.Impulse);
         shotFired.GetComponent<Rigidbody>().AddForce(Vector3.up * 2f, ForceMode.Impulse);
-
-
     }
 }
