@@ -15,23 +15,32 @@ public class cannonController : MonoBehaviour
     }
     #endregion
 
+    [Header("Cannon Positions")]
     [SerializeField] private Transform pivot;
     [SerializeField] private Transform firePos;
+    [SerializeField] private Transform playerLoc;
+    [SerializeField] private Transform CameraLoc;
+
+    [Header("Cannon Ball Prefab")]
     [SerializeField] private GameObject cannonProyectile;
+
+    [Header("Cannon Settings")]
+    [SerializeField] private float shootDelayTime = .3f;
 
     private playerInteraction playerInt;
     private playerController playerCtrl;
 
-    [SerializeField] private Transform playerLoc;
-    [SerializeField] private Transform CameraLoc;
-    [SerializeField] private bool hasPlayerSnapped = false;
+    private bool hasPlayerSnapped = false;
 
+    private bool canShoot = true;
+
+    // mouseSettings;
     float cameraCap;
     float sideWaysCap;
-    float mouseSensitivity = 2.8f;
+    float mouseSensitivity = 1.8f;
     Vector2 currentMouseDelta;
     Vector2 currentMouseDeltaVelocity;
-    [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+    float mouseSmoothTime = 0.01f;
 
     private void Start()
     {
@@ -39,31 +48,53 @@ public class cannonController : MonoBehaviour
         playerCtrl = FindAnyObjectByType<playerController>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if(hasPlayerSnapped) 
         {
             UpdateMouse();
         }
 
+        // check if left click
         if(Input.GetMouseButtonDown(0))
         {
-            Fire();
+            // check if cannon has a player attached
+            if(hasPlayerSnapped == true)
+            {
+                // check if the player can shoot
+                if(canShoot == true)
+                {
+                    canShoot = false;
+                    Fire();
+                    StartCoroutine(shootDelay());
+
+                }
+            }
         }
+    }
+
+    // Function for the Delay of the shooting
+    private IEnumerator shootDelay()
+    {
+        yield return new WaitForSeconds(shootDelayTime);
+        canShoot = true;
     }
 
     void UpdateMouse()
     {
         Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
+        // Smooths the mouse movement
         currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
 
-        cameraCap -= currentMouseDelta.y * mouseSensitivity;
+        // Gets the mouse input vertically and Damps it to a max and min value
+        cameraCap += currentMouseDelta.y * mouseSensitivity;
         cameraCap = Mathf.Clamp(cameraCap, -20.0f, 35.0f);
 
         pivot.localEulerAngles = Vector3.right * cameraCap;
 
-        sideWaysCap -= currentMouseDelta.x * mouseSensitivity;
+        // Gets the mouse input horizontally and Damps it to a max and min value
+        sideWaysCap += currentMouseDelta.x * mouseSensitivity;
         sideWaysCap = Mathf.Clamp(sideWaysCap, -15f, 15f);
         //print(sideWaysCap);
         
@@ -76,17 +107,8 @@ public class cannonController : MonoBehaviour
 
         if (hasPlayerSnapped == true)
         {
-            // Player Exit From Cannon
-            
             // toggle Player Snapped
             hasPlayerSnapped = false;
-
-            // Get the player on the right rotation
-            //playerCtrl.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.back);
-            //playerCtrl.gameObject.transform.rotation = Quaternion.LookRotation(CameraLoc.transform.forward);
-            //.gameObject.transform.LookAt(CameraLoc);
-            //playerInt.getCameraPos().transform.LookAt(CameraLoc);
-            //playerInt.gameObject.transform.rotation.x = Quaternion.LookRotation(firePos.position).x;
 
             // Get the Camera to be Snapped to the Player
             Camera.main.gameObject.transform.position = playerInt.getCameraPos().position;
@@ -119,32 +141,21 @@ public class cannonController : MonoBehaviour
                 // Get the player Movement to lock
                 playerCtrl.canMove = false;
 
-                //Debug.Log("Player is now snapped to the cannon");
             }
-/*            else
-            {
-                // toggle Player Snapped
-                hasPlayerSnapped = false;
-
-                // Get the Camera to be Snapped to the Player
-                Camera.main.gameObject.transform.position = playerInt.getCameraPos().position;
-                Camera.main.gameObject.transform.parent = playerInt.getCameraPos();
-
-                // Get the player Movement to lock
-                playerCtrl.canMove = true;
-
-                //Debug.Log("Player is no longer snapped to the cannon");
-            }*/
         }
     }
 
     private void Fire()
     {
-        GameObject shotFired = null;
-        shotFired = Instantiate(cannonProyectile, firePos.transform.position, Quaternion.identity);
+        // Creates a new Cannon Ball at the firing position with the pivot transformation
+        GameObject shotFired = Instantiate(cannonProyectile, firePos.transform.position, pivot.transform.rotation);
 
-        shotFired.GetComponent<Rigidbody>().AddForce(Vector3.back * 30f, ForceMode.Impulse);
+        firePos.transform.rotation = pivot.transform.rotation;
+
+        // adds the Force to the cannon Ball.
+        shotFired.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back * 30f, ForceMode.Impulse);
         shotFired.GetComponent<Rigidbody>().AddForce(Vector3.up * 2f, ForceMode.Impulse);
+
 
     }
 }
