@@ -143,6 +143,7 @@ public class cannonController : MonoBehaviour
 
             }
         }
+        else { return; }
     }
 
     private void Fire()

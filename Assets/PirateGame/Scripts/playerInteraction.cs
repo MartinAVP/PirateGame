@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerInteraction : MonoBehaviour
@@ -39,33 +39,47 @@ public class playerInteraction : MonoBehaviour
         yield return new WaitForSeconds(interactDelay);
     }
 
+    /*    public GameObject checkObject()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(CameraPos.position, CameraPos.transform.forward, out hit, 5f))
+            {
+                //print(hit.transform.name);
+                if (hit.transform.gameObject != null)
+                {
+                    if (hit.transform.tag == "Interactable")
+                    {
+                        return hit.transform.gameObject;
+                    }
+                    else if(hit.transform.tag != "Interactable")
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else if(hit.transform.gameObject == null) { return null; }
+                else { return null; }
+            }
+
+            return null;
+        }*/
+
     public GameObject checkObject()
     {
         RaycastHit hit;
+
         if (Physics.Raycast(CameraPos.position, CameraPos.transform.forward, out hit, 5f))
         {
-            //print(hit.transform.name);
-            if (hit.transform.gameObject != null)
-            {
-                if (hit.transform.tag == "Interactable")
-                {
-                    return hit.transform.gameObject;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else if(hit.transform.gameObject == null) { return null; }
-            else { return null; }
+            return hit.transform.gameObject;
         }
+        else
+        {
+            print("Nothing Hit");
+            return null;
 
-        return null;
-    }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("Check Object"))
-            checkObject();
+        }
     }
 }
