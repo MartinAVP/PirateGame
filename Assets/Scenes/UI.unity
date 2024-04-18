@@ -993,6 +993,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InventoryParent: {fileID: 2015681562}
+  bananaTexture: {fileID: 21300000, guid: 5cdf6b49e0075164fb1ccd76b7c1f12c, type: 3}
+  cannonBallTexture: {fileID: 21300000, guid: 04c656863e2e0f948b4f309154a3e6a0, type: 3}
+  coconutTexture: {fileID: 21300000, guid: dd147e5c3790bc144b43c5de586c62b4, type: 3}
 --- !u!4 &1265524618
 Transform:
   m_ObjectHideFlags: 0

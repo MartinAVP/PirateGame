@@ -12,6 +12,8 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Textures for Items")]
     [SerializeField] private Sprite bananaTexture;
+    [SerializeField] private Sprite cannonBallTexture;
+    [SerializeField] private Sprite coconutTexture;
 
     private void Start()
     {
@@ -46,11 +48,20 @@ public class InventoryManager : MonoBehaviour
 
         //InventorySlot slot1 = new InventorySlot(false, "Slot 1");
     }
-
     private void OnGUI()
     {
-        if (GUILayout.Button("GetBanana"))
+        if (GUILayout.Button("Grab Banana"))
             addItem(ItemType.Banana);
+        if (GUILayout.Button("Drop/Use Banana"))
+            removeItem(ItemType.Banana);
+        if (GUILayout.Button("Grab Coconut"))
+            addItem(ItemType.Coconut);
+        if (GUILayout.Button("Drop/Use Coconut"))
+            removeItem(ItemType.Coconut);
+        if (GUILayout.Button("Grab Cannon Ball"))
+            addItem(ItemType.CannonBall);
+        if (GUILayout.Button("Drop/Use Cannon Ball"))
+            removeItem(ItemType.CannonBall);
     }
 
     private void addItem(ItemType item)
@@ -59,39 +70,99 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < InventorySlots.Length; i++)
         {
             // Bananas already being saved in Inventory.
-            if (InventorySlots[i].itemHeld == ItemType.Banana)
+            if (InventorySlots[i].itemHeld == item)
             {
                 InventorySlots[i].quantity++;
                 InventorySlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
+
+                //foundItem = true;
+                Debug.Log("There was already a " + item + " instantiated therefore, adding one. New total: " + InventorySlots[i].quantity);
+                
+                foundItem = true;
+            }
+        }
+
+        // No Bananas in Inventory, using a new slot.
+        if (foundItem == false)
+        {
+            for (int j = 0; j < InventorySlots.Length; j++)
+            {
+                if (InventorySlots[j].used == false)
+                {
+                    InventorySlots[j].used = true;
+
+                    InventorySlots[j].icon.SetActive(true);
+                    InventorySlots[j].numberIcon.SetActive(true);
+
+                    InventorySlots[j].itemHeld = item;
+                    InventorySlots[j].quantity = 1;
+
+                    InventorySlots[j].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[j].quantity.ToString();
+                    InventorySlots[j].icon.GetComponent<Image>().sprite = getTexture(item);
+                    Debug.Log("The banana is now bein instantiated in the inventory");
+
+                    return;
+                }
+            }
+        }
+    }
+    private void removeItem(ItemType item)
+    {
+        bool foundItem = false;
+        for (int i = 0; i < InventorySlots.Length; i++)
+        {
+            // Bananas already being saved in Inventory.
+            if (InventorySlots[i].itemHeld == item)
+            {
+                // There is bananas left in the inventory
+                if (InventorySlots[i].quantity > 1) 
+                {
+                    InventorySlots[i].quantity--;
+                    InventorySlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
+                }
+                // There is not any bananas left in the Inventory
+                else
+                {
+                    InventorySlots[i].used = false;
+
+                    InventorySlots[i].icon.SetActive(false);
+                    InventorySlots[i].numberIcon.SetActive(false);
+
+                    InventorySlots[i].itemHeld = ItemType.None;
+                    InventorySlots[i].quantity = 0;
+                    InventorySlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
+                    InventorySlots[i].icon.GetComponent<Image>().sprite = bananaTexture;
+                }
 
                 foundItem = true;
                 Debug.Log("The Banana is already instantiated in the inventory");
                 return;
             }
-            // No Bananas in Inventory, using a new slot.
-            if(foundItem == false)
+            else
             {
-                for (int j = 0; j < InventorySlots.Length; j++)
-                {
-                    if (InventorySlots[j].used == false)
-                    {
-                        InventorySlots[j].used = true;
-
-                        InventorySlots[j].icon.SetActive(true);
-                        InventorySlots[j].numberIcon.SetActive(true);
-
-                        InventorySlots[j].itemHeld = ItemType.Banana;
-                        InventorySlots[j].quantity = 1;
-                        InventorySlots[j].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
-                        InventorySlots[j].icon.GetComponent<Image>().sprite = bananaTexture;
-                        Debug.Log("The banana is now bein instantiated in the inventory");
-                        return;
-                    }
-                }
+                Debug.Log("There was no banana in the inventory");
             }
         }
     }
+    private Sprite getTexture(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.None:
+                return null;
+            case ItemType.Banana:
+                return bananaTexture;
+            case ItemType.Coconut:
+                return coconutTexture;
+            case ItemType.CannonBall:
+                return cannonBallTexture;
+            default:
+                return null;
+        }
+    }
+
 }
+
 
 struct InventorySlot
 {
@@ -126,5 +197,6 @@ public enum ItemType
 {
     None,
     Banana,
+    Coconut,
     CannonBall
 }
