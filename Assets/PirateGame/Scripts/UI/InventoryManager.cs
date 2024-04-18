@@ -17,19 +17,6 @@ public class InventoryManager : MonoBehaviour
         GameEventBus.Unsubscribe(GameEventsType.INTERACT, ItemInteract);
     }
     #endregion
-
-    private void ItemInteract()
-    {
-        print("Interacted");
-        if (playerInt.checkObject() == null) { return; }
-        //print(playerInt.checkObject().tag);
-        if (playerInt.checkObject().tag == "pickUpItem")
-        {
-            addItem(playerInt.checkObject().GetComponent<PickUpItem>().itemType);
-            Destroy(playerInt.checkObject().gameObject);
-        }
-    }
-
     [SerializeField] private InventorySlot[] InventorySlots;
     [SerializeField] private Transform InventoryParent;
 
@@ -106,7 +93,7 @@ public class InventoryManager : MonoBehaviour
                 InventorySlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
 
                 //foundItem = true;
-                Debug.Log("There was already a " + item + " instantiated therefore, adding one. New total: " + InventorySlots[i].quantity);
+                //Debug.Log("There was already a " + item + " instantiated therefore, adding one. New total: " + InventorySlots[i].quantity);
                 
                 foundItem = true;
             }
@@ -129,7 +116,7 @@ public class InventoryManager : MonoBehaviour
 
                     InventorySlots[j].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[j].quantity.ToString();
                     InventorySlots[j].icon.GetComponent<Image>().sprite = getTexture(item);
-                    Debug.Log("The banana is now bein instantiated in the inventory");
+                    //Debug.Log("The banana is now bein instantiated in the inventory");
 
                     return;
                 }
@@ -165,14 +152,15 @@ public class InventoryManager : MonoBehaviour
                 }
 
                 foundItem = true;
-                Debug.Log("The Banana is already instantiated in the inventory");
+                //Debug.Log("The Banana is already instantiated in the inventory");
                 return;
             }
             else
             {
-                Debug.Log("There was no banana in the inventory");
+                //Debug.Log("There was no banana in the inventory");
             }
         }
+
     }
     private Sprite getTexture(ItemType type)
     {
@@ -191,13 +179,23 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    private void ItemInteract()
+    {
+        //print("Interacted");
+        if (playerInt.checkObject() == null) { return; }
+        //print(playerInt.checkObject().tag);
+        if (playerInt.checkObject().tag == "pickUpItem")
+        {
+            addItem(playerInt.checkObject().GetComponent<PickUpItem>().itemType);
+            Destroy(playerInt.checkObject().gameObject);
+        }
+    }
+
 }
 
 
 struct InventorySlot
 {
-    //Variable declaration
-    //Note: I'm explicitly declaring them as public, but they are public by default. You can use private if you choose.
     public int id;
     public GameObject SlotItem;
     public bool used;

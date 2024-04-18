@@ -120,6 +120,7 @@ public class cannonController : MonoBehaviour
         }
 
         else if (playerInt.checkObject() == null) { return; }
+        else if (playerInt.checkObject().tag != "Interactable") { return; }
         else if (playerInt.checkObject().transform.parent.gameObject == this.gameObject)
         {
             //Debug.Log("Shoot Called");
