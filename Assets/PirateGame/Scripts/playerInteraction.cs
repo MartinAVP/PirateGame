@@ -8,12 +8,16 @@ public class playerInteraction : MonoBehaviour
 {
     [SerializeField]private Transform CameraPos;
     [SerializeField]private Transform CameraLoc;
+    [SerializeField]private Transform handItemPos;
     [SerializeField]private bool canInteract = true;
     [SerializeField][Range(0.1f, 1)] private float interactDelay = .1f;
 
     private UIManager ui;
     private playerController controller;
     private InventoryManager inventory;
+    private GameItems gameItems;
+
+    private bool hasItemInHand = false;
 
     private bool usingCannon;
     private void Start()
@@ -22,9 +26,54 @@ public class playerInteraction : MonoBehaviour
         ui = FindObjectOfType<UIManager>();
         controller = FindObjectOfType<playerController>();
         inventory = FindObjectOfType<InventoryManager>();
+        gameItems = FindObjectOfType<GameItems>();
     }
 
     public Transform getCameraPos(){ return CameraLoc; }
+
+    private void OnGUI()
+    {
+        if (GUILayout.Button("Banana On Hand"))
+            handItem(ItemType.Banana);
+        if (GUILayout.Button("Cannon Ball On Hand"))
+            handItem(ItemType.CannonBall);
+    }
+
+
+    private ItemType currentItemInHand;
+    GameObject itemHeld = null;
+    public void handItem(ItemType type)
+    {
+        // Player is not Holding an Item
+        if (hasItemInHand == false)
+        {
+            itemHeld = Instantiate(gameItems.GetPrefab(type), handItemPos.position, handItemPos.transform.rotation);
+            itemHeld.transform.parent = CameraPos;
+
+            currentItemInHand = type;
+            hasItemInHand = true;
+        }
+        // Player is Holding an Item
+        else if (hasItemInHand == true)
+        {
+            // Item is the same as the one already being held
+            if(type == currentItemInHand)
+            {
+                return;
+            }
+            // Item is a different Item than the one already in hand
+            else
+            {
+                // The Player clicked on an empty Slot
+                if(type == ItemType.None) { Destroy(itemHeld); return; }
+
+                Destroy(itemHeld);
+                itemHeld = Instantiate(gameItems.GetPrefab(type), handItemPos.position, handItemPos.transform.rotation);
+                itemHeld.transform.parent = CameraPos;
+                currentItemInHand = type;
+            }
+        }
+    }
 
     private void Update()
     {

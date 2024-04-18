@@ -7,12 +7,24 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private bool mouse_over = false;
 
-    void Update()
-    {
-        if (mouse_over)
+    /*    void Update()
         {
-            //Debug.Log("Mouse Over");
-        }
+            if (mouse_over)
+            {
+                //Debug.Log("Mouse Over");
+            }
+        }*/
+    public ItemType itemStored;
+    private playerInteraction playerInt;
+
+    private void Start()
+    {
+        playerInt = FindObjectOfType<playerInteraction>();
+    }
+
+    public void selectItem()
+    {
+        playerInt.handItem(itemStored);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
