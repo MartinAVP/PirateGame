@@ -7,6 +7,29 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    #region eventBus
+    private void OnEnable()
+    {
+        GameEventBus.Subscribe(GameEventsType.INTERACT, ItemInteract);
+    }
+    private void OnDisable()
+    {
+        GameEventBus.Unsubscribe(GameEventsType.INTERACT, ItemInteract);
+    }
+    #endregion
+
+    private void ItemInteract()
+    {
+        print("Interacted");
+        if (playerInt.checkObject() == null) { return; }
+        //print(playerInt.checkObject().tag);
+        if (playerInt.checkObject().tag == "pickUpItem")
+        {
+            addItem(playerInt.checkObject().GetComponent<PickUpItem>().itemType);
+            Destroy(playerInt.checkObject().gameObject);
+        }
+    }
+
     [SerializeField] private InventorySlot[] InventorySlots;
     [SerializeField] private Transform InventoryParent;
 
@@ -14,6 +37,13 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Sprite bananaTexture;
     [SerializeField] private Sprite cannonBallTexture;
     [SerializeField] private Sprite coconutTexture;
+
+    private playerInteraction playerInt;
+
+    private void Awake()
+    {
+        playerInt = FindObjectOfType<playerInteraction>();
+    }
 
     private void Start()
     {
@@ -64,7 +94,7 @@ public class InventoryManager : MonoBehaviour
             removeItem(ItemType.CannonBall);
     }
 
-    private void addItem(ItemType item)
+    public void addItem(ItemType item)
     {
         bool foundItem = false;
         for (int i = 0; i < InventorySlots.Length; i++)
@@ -106,7 +136,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-    private void removeItem(ItemType item)
+    public void removeItem(ItemType item)
     {
         bool foundItem = false;
         for (int i = 0; i < InventorySlots.Length; i++)

@@ -104,7 +104,6 @@ public class cannonController : MonoBehaviour
 
     private void ShootCannon()
     {
-
         if (hasPlayerSnapped == true)
         {
             // toggle Player Snapped
