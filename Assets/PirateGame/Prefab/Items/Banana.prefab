@@ -28,11 +28,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092455964948258915}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00085077767, y: -0.00004486358, z: -0.7059619, w: 0.70824933}
+  m_LocalRotation: {x: -0.00085159583, y: -0.0000480135, z: -0.70596373, w: 0.7082474}
   m_LocalPosition: {x: 7.64, y: 0.19, z: -7.806}
   m_LocalScale: {x: 0.37244, y: 0.37244, z: 0.37244}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3360940120453698676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -0.073, y: 0.065, z: -89.815}
 --- !u!33 &5736619699199086800
@@ -121,3 +122,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 1
+--- !u!1 &4996063330293124529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3360940120453698676}
+  m_Layer: 0
+  m_Name: ToolTipLoc
+  m_TagString: ToolTipLoc
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3360940120453698676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4996063330293124529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5107945373732420101}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
