@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4238251372881822128}
   - component: {fileID: 5544745591127595389}
   m_Layer: 0
-  m_Name: Coconut
+  m_Name: Plank
   m_TagString: pickUpItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.68, y: 0.21, z: -6.8}
-  m_LocalScale: {x: 0.44315, y: 0.44315, z: 0.44315}
+  m_LocalScale: {x: 0.8637597, y: 0.0689608, z: 0.24730429}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1482023906070582510}

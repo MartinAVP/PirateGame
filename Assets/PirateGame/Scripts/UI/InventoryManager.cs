@@ -23,7 +23,7 @@ public class InventoryManager : MonoBehaviour
     [Header("Textures for Items")]
     [SerializeField] private Sprite bananaTexture;
     [SerializeField] private Sprite cannonBallTexture;
-    [SerializeField] private Sprite coconutTexture;
+    [SerializeField] private Sprite plankTexture;
 
     private playerInteraction playerInt;
 
@@ -175,8 +175,8 @@ public class InventoryManager : MonoBehaviour
                 return null;
             case ItemType.Banana:
                 return bananaTexture;
-            case ItemType.Coconut:
-                return coconutTexture;
+            case ItemType.Plank:
+                return plankTexture;
             case ItemType.CannonBall:
                 return cannonBallTexture;
             default:

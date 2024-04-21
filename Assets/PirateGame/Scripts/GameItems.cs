@@ -6,9 +6,9 @@ public class GameItems : MonoBehaviour
 {
     [Header("Prefabs")]
     [Header("FoodItems")]
-    public GameObject coconutPrefab;
     public GameObject bananaPrefab;
     [Header("Useables")]
+    public GameObject plankPrefab;
     public GameObject cannonBallPrefab;
 
     public GameObject GetPrefab(ItemType type)
@@ -21,8 +21,8 @@ public class GameItems : MonoBehaviour
             case ItemType.Banana:
                 return bananaPrefab;
 
-            case ItemType.Coconut:
-                return coconutPrefab;
+            case ItemType.Plank:
+                return plankPrefab;
 
             case ItemType.CannonBall:
                 return cannonBallPrefab;
@@ -37,6 +37,13 @@ public enum ItemType
 {
     None,
     Banana,
-    Coconut,
+    Plank,
     CannonBall
+}
+
+public enum InteractType
+{
+    None,
+    Cannon,
+    Barrel
 }

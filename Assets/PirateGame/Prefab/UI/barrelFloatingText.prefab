@@ -527,7 +527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cannon
+  m_text: Barrel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae2bdbf648bb421458a8d6b2a86ea32c, type: 2}
   m_sharedMaterial: {fileID: -579730440578278675, guid: ae2bdbf648bb421458a8d6b2a86ea32c,
@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 1033574383322846209}
   - component: {fileID: 6970337665337161599}
   m_Layer: 6
-  m_Name: CannonFloatingText
+  m_Name: barrelFloatingText
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

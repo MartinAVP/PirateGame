@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
-    [Header("Tooltips")]
-    [SerializeField] GameObject cannonToolTip;
-    [SerializeField] GameObject bananaToolTip;
-    [SerializeField] GameObject coconutToolTip;
+
     private playerInteraction playerInt;
+    private GameTooltips tooltip;
 
     private GameObject itemLookedAt;
     private Transform toolTipLoc;
@@ -20,6 +18,7 @@ public class PlayerView : MonoBehaviour
     private void Start()
     {
         playerInt = FindObjectOfType<playerInteraction>();
+        tooltip = FindObjectOfType<GameTooltips>();
     }
 
     private void Update()
@@ -28,7 +27,7 @@ public class PlayerView : MonoBehaviour
         //
         if(itemLookedAt == null) 
         {
-            Debug.Log("Looking at Nothing");
+            //Debug.Log("Looking at Nothing");
             if(messageDisplayed == true)
             {
                 removeToolTip(currentMessage);
@@ -37,7 +36,7 @@ public class PlayerView : MonoBehaviour
         }
         else
         {
-            Debug.Log("Looking at Something");
+            //Debug.Log("Looking at Something");
 
             if(itemLookedAt.tag == "pickUpItem")
             {
@@ -46,30 +45,25 @@ public class PlayerView : MonoBehaviour
                     toolTipLoc = GetToolTipLocation(itemLookedAt);
                     createToolTip(itemLookedAt);
                 }
+                else if(messageDisplayed == true)
+                {
+                    if(currentMessage != itemLookedAt)
+                    {
+                        removeToolTip(currentMessage);
+                        toolTipLoc = GetToolTipLocation(itemLookedAt);
+                        createToolTip(itemLookedAt);
+                    }
+                }
             }
-        }
-/*        toolTipLoc = GetToolTipLocation(itemLookedAt);
-        // Item is Null
-        if (itemLookedAt == null) 
-        {
-            // There is already a message being displayed, take it out.
-            if(messageDisplayed == true)
+            if (itemLookedAt.tag == "Interactable")
             {
-                removeToolTip(currentMessage);
-                Debug.Log("Not seeing anything");
-                return;
+                if(messageDisplayed == false)
+                {
+                    toolTipLoc = GetToolTipLocation(itemLookedAt.transform.parent.gameObject);
+                    createToolTip(itemLookedAt.transform.parent.gameObject);
+                }
             }
         }
-        //The Item viewed is not null;
-        else if (itemLookedAt != null)
-        {
-            //if there is already a message showing
-            if(messageDisplayed == false)
-            {
-                createToolTip(itemLookedAt);
-            }
-        }
-        else if (itemLookedAt.tag != "pickUpItem") { return; }*/
     }
 
     public GameObject viewForward()
@@ -111,18 +105,32 @@ public class PlayerView : MonoBehaviour
         {
             if(item.GetComponent<PickUpItem>().itemType == ItemType.CannonBall)
             {
-                currentMessage = Instantiate(cannonToolTip, toolTipLoc.transform.position, Quaternion.identity);
+                currentMessage = Instantiate(tooltip.GetItemTooltip(ItemType.CannonBall), toolTipLoc.transform.position, Quaternion.identity);
             }
             else if (item.GetComponent<PickUpItem>().itemType == ItemType.Banana)
             {
-                currentMessage = Instantiate(bananaToolTip, toolTipLoc.transform.position, Quaternion.identity);
+                currentMessage = Instantiate(tooltip.GetItemTooltip(ItemType.Banana), toolTipLoc.transform.position, Quaternion.identity);
             }
-            else if (item.GetComponent<PickUpItem>().itemType == ItemType.Coconut)
+            else if (item.GetComponent<PickUpItem>().itemType == ItemType.Plank)
             {
-                currentMessage = Instantiate(coconutToolTip, toolTipLoc.transform.position, Quaternion.identity);
+                currentMessage = Instantiate(tooltip.GetItemTooltip(ItemType.Plank), toolTipLoc.transform.position, Quaternion.identity);
             }
             messageDisplayed = true;
             //currentMessage = item.gameObject;
+        }
+        else if(item.tag == "Interactable")
+        {
+            if (item.GetComponent<InteractableItem>().InteractType == InteractType.Cannon)
+            {
+                //Debug.Log("Cannon");
+                currentMessage = Instantiate(tooltip.GetInteractTooltip(InteractType.Cannon), toolTipLoc.transform.position, Quaternion.identity);
+            }
+            else if (item.GetComponent<InteractableItem>().InteractType == InteractType.Barrel)
+            {
+                //Debug.Log("Cannon");
+                currentMessage = Instantiate(tooltip.GetInteractTooltip(InteractType.Barrel), toolTipLoc.transform.position, Quaternion.identity);
+            }
+            messageDisplayed = true;
         }
     }
 
@@ -132,4 +140,5 @@ public class PlayerView : MonoBehaviour
         messageDisplayed = false;
         currentMessage = null;
     }
+
 }

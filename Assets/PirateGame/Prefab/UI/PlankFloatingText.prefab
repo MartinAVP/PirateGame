@@ -99,7 +99,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use
+  m_text: Pick up
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae2bdbf648bb421458a8d6b2a86ea32c, type: 2}
   m_sharedMaterial: {fileID: -579730440578278675, guid: ae2bdbf648bb421458a8d6b2a86ea32c,
@@ -371,7 +371,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.03, y: 0.22, z: 0}
-  m_LocalScale: {x: 0.2693677, y: 0.39877152, z: 0.39877152}
+  m_LocalScale: {x: 0.3071563, y: 0.39877152, z: 0.39877152}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1033574383322846209}
@@ -454,7 +454,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3127555138470400354}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -462,7 +462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55.35, y: -50}
+  m_AnchoredPosition: {x: 56.13, y: -50}
   m_SizeDelta: {x: 10, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6293630981808636225
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cannon
+  m_text: Plank
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae2bdbf648bb421458a8d6b2a86ea32c, type: 2}
   m_sharedMaterial: {fileID: -579730440578278675, guid: ae2bdbf648bb421458a8d6b2a86ea32c,
@@ -626,7 +626,7 @@ Transform:
   m_GameObject: {fileID: 4563966358116977351}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.57, y: 0.245, z: -0.01}
+  m_LocalPosition: {x: -3.35, y: 0.245, z: -0.01}
   m_LocalScale: {x: 1.0884, y: 1.0884, z: 1.0884}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 1033574383322846209}
   - component: {fileID: 6970337665337161599}
   m_Layer: 6
-  m_Name: CannonFloatingText
+  m_Name: PlankFloatingText
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
