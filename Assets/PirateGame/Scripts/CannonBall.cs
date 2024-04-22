@@ -5,6 +5,7 @@ using UnityEngine;
 public class CannonBall : MonoBehaviour
 {
     [SerializeField][Range(0.1f, 100)] private float maxLifeTime = 60;
+    [HideInInspector] public CannonHitRegister cannonHit;
 
     private void Start()
     {
@@ -13,6 +14,10 @@ public class CannonBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.tag == "CannonTarget")
+        {
+            cannonHit.cannonBallHitTarget();
+        }
         DestroyProjectile();
     }
 
