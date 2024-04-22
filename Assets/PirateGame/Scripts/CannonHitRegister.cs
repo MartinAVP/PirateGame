@@ -7,6 +7,8 @@ public class CannonHitRegister : MonoBehaviour
     [SerializeField] private float timeBetweenHitSound = 90;
     [SerializeField] private float currentTime;
 
+    private List<GameObject> 
+
     private void Start()
     {
         currentTime = timeBetweenHitSound;
@@ -22,6 +24,6 @@ public class CannonHitRegister : MonoBehaviour
 
     private void newCannonBall(GameObject cannonBall)
     {
-
+        //
     }
 }
