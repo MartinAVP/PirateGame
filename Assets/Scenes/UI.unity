@@ -1645,6 +1645,7 @@ GameObject:
   - component: {fileID: 1265524620}
   - component: {fileID: 1265524619}
   - component: {fileID: 1265524621}
+  - component: {fileID: 1265524622}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1737,6 +1738,18 @@ MonoBehaviour:
     type: 3}
   barrelToolTip: {fileID: 7758787326177395968, guid: 077e9e5a015539a4e8055e8af5092394,
     type: 3}
+--- !u!114 &1265524622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265524616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a12aa375031e8499117bd5e38067cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1374380513
 GameObject:
   m_ObjectHideFlags: 0

@@ -199,6 +199,7 @@ public class InventoryManager : MonoBehaviour
 }
 
 
+
 struct InventorySlot
 {
     public int id;

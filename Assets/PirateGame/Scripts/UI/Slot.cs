@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private bool mouse_over = false;
+    private bool mouse_over;
 
     /*    void Update()
         {
@@ -20,6 +20,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Start()
     {
         playerInt = FindObjectOfType<playerInteraction>();
+        mouse_over = false;
     }
 
     public void selectItem()
