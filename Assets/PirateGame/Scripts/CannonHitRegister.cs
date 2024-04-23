@@ -7,15 +7,17 @@ public class CannonHitRegister : MonoBehaviour
     [SerializeField] private float timeBetweenHitSound = 90;
     [SerializeField] private float currentTime;
 
-    [SerializeField]private AudioSource[] cannonTargetHitSounds = new AudioSource[8];
-    private List<GameObject> activeCannonBalls;
+    [SerializeField]public AudioClip[] cannonTargetHitSounds = new AudioClip[10];
     private int currentSoundID;
+
+    public AudioSource cannonSound;
 
     private bool timerRunning = true;
 
     private void Start()
     {
         currentTime = timeBetweenHitSound;
+        cannonSound = this.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -33,11 +35,6 @@ public class CannonHitRegister : MonoBehaviour
         }
     }
 
-    private void newCannonBall(GameObject cannonBall)
-    {
-        activeCannonBalls.Add(cannonBall);
-    }
-
     private void StopTimer()
     {
         // Stop the Timer
@@ -51,18 +48,8 @@ public class CannonHitRegister : MonoBehaviour
 
     private void StartTimer()
     {
-        if (timerRunning == true)
-        {
-            // Restart the Timer
-            timerRunning=true;
-            StartTimer();
-            Debug.Log("Time Already Running");
-        }
-        else
-        {
-            timerRunning=true;
-            currentTime = timeBetweenHitSound;
-        }
+        timerRunning = true;
+        currentTime = timeBetweenHitSound;
     }
 
     public void cannonBallHit()
@@ -72,6 +59,7 @@ public class CannonHitRegister : MonoBehaviour
 
     public void cannonBallHitTarget()
     {
+        Debug.Log("Cannon Ball hit sound");
         // Start The Timer for Hitting Sound
         StartTimer();
 
@@ -79,42 +67,62 @@ public class CannonHitRegister : MonoBehaviour
         switch (currentSoundID)
         {
             case 0:
-                cannonTargetHitSounds[0].Play();
+                cannonSound.clip = cannonTargetHitSounds[0];
+                cannonSound.Play();
                 Debug.Log("Hit: " + currentSoundID);
                 currentSoundID++;
                 break;
             case 1:
-                cannonTargetHitSounds[1].Play();
+                cannonSound.clip = cannonTargetHitSounds[1];
+                cannonSound.Play();
                 Debug.Log("Hit: " + currentSoundID);
                 currentSoundID++;
                 break;
             case 2:
-                cannonTargetHitSounds[2].Play();
+                cannonSound.clip = cannonTargetHitSounds[2];
+                cannonSound.Play();
                 Debug.Log("Hit: " + currentSoundID);
                 currentSoundID++;
                 break;
             case 3:
-                cannonTargetHitSounds[3].Play();
+                cannonSound.clip = cannonTargetHitSounds[3];
+                cannonSound.Play();
                 Debug.Log("Hit: " + currentSoundID);
                 currentSoundID++;
                 break;
             case 4:
-                cannonTargetHitSounds[4].Play();
+                cannonSound.clip = cannonTargetHitSounds[4];
+                cannonSound.Play();
                 Debug.Log("Hit: " + currentSoundID);
                 currentSoundID++;
                 break;
             case 5:
-                cannonTargetHitSounds[5].Play();
+                cannonSound.clip = cannonTargetHitSounds[5];
+                cannonSound.Play();
                 Debug.Log("Hit: " + currentSoundID);
                 currentSoundID++;
                 break;
             case 6:
-                cannonTargetHitSounds[6].Play();
+                cannonSound.clip = cannonTargetHitSounds[6];
+                cannonSound.Play();
                 Debug.Log("Hit: " + currentSoundID);
                 currentSoundID++;
                 break;
             case 7:
-                cannonTargetHitSounds[7].Play();
+                cannonSound.clip = cannonTargetHitSounds[7];
+                cannonSound.Play();
+                Debug.Log("Hit: " + currentSoundID);
+                currentSoundID++;
+                break;
+            case 8:
+                cannonSound.clip = cannonTargetHitSounds[8];
+                cannonSound.Play();
+                Debug.Log("Hit: " + currentSoundID);
+                currentSoundID++;
+                break;
+            case 9:
+                cannonSound.clip = cannonTargetHitSounds[9];
+                cannonSound.Play();
                 Debug.Log("Hit: " + currentSoundID);
                 currentSoundID = 0;
                 break;

@@ -152,6 +152,8 @@ public class cannonController : MonoBehaviour
 
         firePos.transform.rotation = pivot.transform.rotation;
 
+        shotFired.GetComponent<CannonBall>().cannonHit = FindObjectOfType<CannonHitRegister>();
+
         // adds the Force to the cannon Ball.
         shotFired.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back * 30f, ForceMode.Impulse);
         shotFired.GetComponent<Rigidbody>().AddForce(Vector3.up * 2f, ForceMode.Impulse);
