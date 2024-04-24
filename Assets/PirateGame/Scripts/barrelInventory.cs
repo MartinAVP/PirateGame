@@ -12,7 +12,8 @@ public class barrelInventory : MonoBehaviour
     [SerializeField] private BarrelInventory[] UISlots;
     [SerializeField] private Transform SlotsParent;
     //[SerializeField] private Transform[] slotLocations;
-    [SerializeField] private LinkedList<BarrelSlot> inventoryOrder;
+    //[SerializeField] private LinkedList<BarrelSlot> inventoryOrder;
+    [SerializeField] public List<BarrelSlot> inventoryOrder;
     // Start is called before the first frame update
 
     private InventoryManager inventoryManager;
@@ -85,7 +86,7 @@ public class barrelInventory : MonoBehaviour
         slotData = new BarrelSlot[16];
         //slotLocations = new Transform[16];
         UISlots = new BarrelInventory[16];
-        inventoryOrder = new LinkedList<BarrelSlot>();
+        inventoryOrder = new List<BarrelSlot>();
 
         /*        int i = 0;
                 foreach(Transform slot in SlotsParent)
@@ -143,47 +144,40 @@ public class barrelInventory : MonoBehaviour
     {
         int i = 0;
         int j = 0;
+        BarrelSlot targetSlot;
+
+        // Item already exists
         foreach(BarrelSlot slot in slotData)
         {
             if(slot.type == type)
             {
                 slotData[i].quantity++;
-
-                //Debug.Log(inventoryOrder.ElementAt(i).type + "    " + inventoryOrder.ElementAt(i).quantity);
-                //Debug.Log(inventoryOrder.Find(slot).ToString());
-
-/*                BarrelSlot targetSlot = inventoryOrder.ElementAt(i);
-                targetSlot.quantity++;*/
-
-/*                foreach (BarrelSlot slotInLL in inventoryOrder)
-                {
-                    if(slotInLL.type == type)
-                    {
-                        BarrelSlot targetSlot = slotInLL;
-                        targetSlot.quantity++;
-                    }
-                    j++;
-                }*/
-
+                targetSlot = inventoryOrder[i];
+                targetSlot.quantity = slotData[i].quantity;
+                inventoryOrder[i] = targetSlot;
+                
                 RefreshBarrel();
                 return;
             }
             i++;
         }
 
+        //Add to Array on the closest to the begging
         for (int k = 0; k < slotData.Length; k++)
         {
             if (slotData[k].quantity == 0)
             {
                 slotData[k].type = type;
                 slotData[k].quantity++;
+
+                UISlots[k].slot.GetComponent<Slot>().itemStored = type;
                 break;
             }
         }
 
 
         Debug.Log("Adding a new Item");
-        inventoryOrder.AddLast(new BarrelSlot(0, 1, type));
+        inventoryOrder.Add(new BarrelSlot(0, 1, type));
         
         SortByOrder();
         RefreshBarrel();
@@ -198,9 +192,14 @@ public class barrelInventory : MonoBehaviour
             if (slotData[i].type == type)
             {
                 Debug.Log("Found Item at" + slotData[i].id);
+                BarrelSlot targetSlot;
                 if (slotData[i].quantity >= 1)
                 {
                     slotData[i].quantity--;
+
+                    targetSlot = inventoryOrder[i];
+                    targetSlot.quantity--;
+                    inventoryOrder[i] = targetSlot;
                 }
                 if (slotData[i].quantity == 0)
                 {
@@ -215,11 +214,17 @@ public class barrelInventory : MonoBehaviour
                     UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = slotData[i].quantity.ToString();
                     UISlots[i].numberIcon.SetActive(false);
 
-                    inventoryOrder.Remove(slotData[i]);
-                    //SortByOrder();
+                    Debug.Log(inventoryOrder.Count);
+                    inventoryOrder.RemoveAt(i);
+                    Debug.Log(inventoryOrder.Count);
+
+                    UISlots[i].slot.GetComponent<Slot>().itemStored = ItemType.None;
+
+                    SortByOrder();
+                    RefreshBarrel();
                 }
 
-                Debug.Log(slotData[i].quantity);
+                //Debug.Log(slotData[i].quantity);
                 RefreshBarrel();
                 return;
             }
@@ -260,7 +265,8 @@ public class barrelInventory : MonoBehaviour
         foreach(BarrelSlot slot in slotData)
         {
             // Quantity is more than 0;
-            if (slotData[i].quantity > 0)
+
+            if (slotData[i].type != ItemType.None)
             {
                 UISlots[i].exists.SetActive(true);
 
@@ -269,8 +275,29 @@ public class barrelInventory : MonoBehaviour
 
                 UISlots[i].numberIcon.SetActive(true);
                 UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = slotData[i].quantity.ToString();
-
             }
+
+            if (UISlots[i].slot.GetComponent<Slot>().itemStored != ItemType.None)
+            {
+                UISlots[i].exists.SetActive(true);
+
+                UISlots[i].itemIcon.SetActive(true);
+                UISlots[i].itemIcon.GetComponent<Image>().sprite = inventoryManager.getTexture(slotData[i].type);
+
+                UISlots[i].numberIcon.SetActive(true);
+                UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = slotData[i].quantity.ToString();
+            }
+            else
+            {
+                UISlots[i].exists.SetActive(false);
+
+                UISlots[i].itemIcon.GetComponent<Image>().sprite = null;
+                UISlots[i].itemIcon.SetActive(false);
+
+                UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = slotData[i].quantity.ToString();
+                UISlots[i].numberIcon.SetActive(false);
+            }
+
             i++;
         }
     }
@@ -278,6 +305,7 @@ public class barrelInventory : MonoBehaviour
     private void SortByOrder()
     {
        inventoryOrder.CopyTo(slotData, 0);
+       RefreshBarrel();
     }
 
     private void SortInventoryByQuantity()
@@ -372,5 +400,10 @@ public struct BarrelSlot
         this.id = id;
         this.quantity = quantity;
         this.type = type;
+    }
+
+    public void addQuantity(int quantityAdded)
+    {
+
     }
 }
