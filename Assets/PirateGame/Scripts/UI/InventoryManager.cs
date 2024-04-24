@@ -18,7 +18,9 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
     [SerializeField] private InventorySlot[] InventorySlots;
+    [SerializeField] private ContainerSlot[] ContainerSlots;
     [SerializeField] private Transform InventoryParent;
+    [SerializeField] private Transform InventoryContainerParent;
 
     [Header("Textures for Items")]
     [SerializeField] private Sprite bananaTexture;
@@ -34,6 +36,52 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
+        InitPlayerInventory();
+        ContainerSlots = new ContainerSlot[16];
+
+        int j = 0;
+        foreach(Transform slot in InventoryContainerParent)
+        {
+            ContainerSlots[j] = new ContainerSlot(slot.gameObject, null, null, null, null);
+            ContainerSlots[j].slot.name = "Slot " + (j + 1);
+
+
+            foreach (Transform childItem in slot)
+            {
+                if (childItem.name == "Item")
+                {
+                    childItem.name = "ItemIcon";
+                    ContainerSlots[j].itemIcon = childItem.gameObject;
+                }
+                else if (childItem.name == "NumberSlot")
+                {
+                    childItem.name = "NumberBackground";
+                    ContainerSlots[j].numberIcon = childItem.gameObject;
+                }
+                else if (childItem.name == "Exists")
+                {
+                    childItem.name = "ItemExistsOutline";
+                    ContainerSlots[j].exists = childItem.gameObject;
+                }
+                else if (childItem.name == "Selected")
+                {
+                    childItem.name = "ItemSelectedOutline";
+                    ContainerSlots[j].selected = childItem.gameObject;
+                }
+
+            }
+            j++;
+
+        }
+
+/*        for (int i = 0; i < InventorySlots.Length; i++)
+        {
+            ContainerSlots[i]. = 
+        }*/
+    }
+
+    private void InitPlayerInventory()
+    {
         InventorySlots = new InventorySlot[8];
 
         int j = 0;
@@ -48,12 +96,12 @@ public class InventoryManager : MonoBehaviour
             //Define each child;
             foreach (Transform childItem in slot)
             {
-                if(childItem.name == "SlotItemIcon")
+                if (childItem.name == "SlotItemIcon")
                 {
                     childItem.name = "ItemIcon";
                     InventorySlots[j].icon = childItem.gameObject;
                 }
-                else if(childItem.name == "NumberVar")
+                else if (childItem.name == "NumberVar")
                 {
                     childItem.name = "NumberBackground";
                     InventorySlots[j].numberIcon = childItem.gameObject;
@@ -63,24 +111,7 @@ public class InventoryManager : MonoBehaviour
 
             j++;
         }
-
-        //InventorySlot slot1 = new InventorySlot(false, "Slot 1");
     }
-/*    private void OnGUI()
-    {
-        if (GUILayout.Button("Grab Banana"))
-            addItem(ItemType.Banana);
-        if (GUILayout.Button("Drop/Use Banana"))
-            removeItem(ItemType.Banana);
-        if (GUILayout.Button("Grab Coconut"))
-            addItem(ItemType.Coconut);
-        if (GUILayout.Button("Drop/Use Coconut"))
-            removeItem(ItemType.Coconut);
-        if (GUILayout.Button("Grab Cannon Ball"))
-            addItem(ItemType.CannonBall);
-        if (GUILayout.Button("Drop/Use Cannon Ball"))
-            removeItem(ItemType.CannonBall);
-    }*/
 
     public void addItem(ItemType item)
     {
@@ -94,6 +125,7 @@ public class InventoryManager : MonoBehaviour
                 InventorySlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
                 //foundItem = true;
                 //Debug.Log("There was already a " + item + " instantiated therefore, adding one. New total: " + InventorySlots[i].quantity);
+                ContainerSlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
                 
                 foundItem = true;
             }
@@ -120,6 +152,18 @@ public class InventoryManager : MonoBehaviour
                     InventorySlots[j].icon.GetComponent<Image>().sprite = getTexture(item);
                     //Debug.Log("The banana is now bein instantiated in the inventory");
 
+                    // Container Side
+
+                    ContainerSlots[j].exists.SetActive(true);
+                    ContainerSlots[j].itemIcon.SetActive(true);
+                    ContainerSlots[j].exists.SetActive(true);
+
+                    ContainerSlots[j].itemIcon.GetComponent<Image>().sprite = getTexture(item);
+
+                    ContainerSlots[j].numberIcon.SetActive(true);
+                    ContainerSlots[j].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[j].quantity.ToString();
+
+                    ContainerSlots[j].slot.GetComponent<Slot>().itemStored = item;
                     return;
                 }
             }
@@ -138,6 +182,8 @@ public class InventoryManager : MonoBehaviour
                 {
                     InventorySlots[i].quantity--;
                     InventorySlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
+
+                    ContainerSlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
                 }
                 // There is not any bananas left in the Inventory
                 else
@@ -154,6 +200,13 @@ public class InventoryManager : MonoBehaviour
                     InventorySlots[i].quantity = 0;
                     InventorySlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
                     InventorySlots[i].icon.GetComponent<Image>().sprite = bananaTexture;
+
+                    ContainerSlots[i].slot.SetActive(false);
+                    ContainerSlots[i].numberIcon.SetActive(false);
+
+                    ContainerSlots[i].slot.GetComponent<Slot>().itemStored = ItemType.None;
+
+                    ContainerSlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
                 }
 
                 foundItem = true;
@@ -167,7 +220,7 @@ public class InventoryManager : MonoBehaviour
         }
 
     }
-    private Sprite getTexture(ItemType type)
+    public Sprite getTexture(ItemType type)
     {
         switch (type)
         {
@@ -224,5 +277,22 @@ struct InventorySlot
         
         this.icon = icon;
         this.numberIcon = numberIcon;   
+    }
+}
+
+struct ContainerSlot
+{
+    public GameObject slot;
+    public GameObject itemIcon;
+    public GameObject numberIcon;
+    public GameObject exists;
+    public GameObject selected;
+    public ContainerSlot(GameObject slot, GameObject itemIcon, GameObject numberIcon, GameObject exists, GameObject selected)
+    {
+        this.slot = slot;
+        this.itemIcon = itemIcon;
+        this.numberIcon = numberIcon;
+        this.exists = exists;
+        this.selected = selected;
     }
 }

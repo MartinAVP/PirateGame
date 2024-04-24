@@ -31,13 +31,13 @@ public class playerInteraction : MonoBehaviour
 
     public Transform getCameraPos(){ return CameraLoc; }
 
-    private void OnGUI()
+/*    private void OnGUI()
     {
         if (GUILayout.Button("Banana On Hand"))
             handItem(ItemType.Banana);
         if (GUILayout.Button("Cannon Ball On Hand"))
             handItem(ItemType.CannonBall);
-    }
+    }*/
 
 
     private ItemType currentItemInHand;

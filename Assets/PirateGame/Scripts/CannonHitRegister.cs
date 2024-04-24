@@ -43,7 +43,7 @@ public class CannonHitRegister : MonoBehaviour
 
         // Set the Hit sound ID to 0
         currentSoundID = 0;
-        Debug.Log("Took too long to hit");
+        //Debug.Log("Took too long to hit");
     }
 
     private void StartTimer()
