@@ -11,14 +11,15 @@ public class barrelInventory : MonoBehaviour
     [SerializeField] private BarrelSlot[] slotData;
     [SerializeField] private BarrelInventory[] UISlots;
     [SerializeField] private Transform SlotsParent;
-    [SerializeField] private Transform[] slotLocations;
+    //[SerializeField] private Transform[] slotLocations;
+    [SerializeField] private LinkedList<BarrelSlot> inventoryOrder;
     // Start is called before the first frame update
 
     private InventoryManager inventoryManager;
 
     private void OnDisable()
     {
-        slotLocations = null;
+        //slotLocations = null;
         slotData = null;
         UISlots = null;
     }
@@ -42,6 +43,10 @@ public class barrelInventory : MonoBehaviour
         {
             addItem2();
         }
+        else if (GUILayout.Button("AddItem 3"))
+        {
+            addItem3();
+        }
         else if (GUILayout.Button("RemoveItem 1"))
         {
             removeItemFromBarrel(ItemType.Banana);
@@ -49,6 +54,10 @@ public class barrelInventory : MonoBehaviour
         else if (GUILayout.Button("RemoveItem 2"))
         {
             removeItemFromBarrel(ItemType.CannonBall);
+        }
+        else if (GUILayout.Button("RemoveItem 2"))
+        {
+            removeItemFromBarrel(ItemType.Plank);
         }
 
     }
@@ -65,11 +74,18 @@ public class barrelInventory : MonoBehaviour
         RefreshBarrel();
     }
 
+    private void addItem3()
+    {
+        AddItemToBarrel(ItemType.Plank);
+        RefreshBarrel();
+    }
+
     void Start()
     {
         slotData = new BarrelSlot[16];
-        slotLocations = new Transform[16];
+        //slotLocations = new Transform[16];
         UISlots = new BarrelInventory[16];
+        inventoryOrder = new LinkedList<BarrelSlot>();
 
         /*        int i = 0;
                 foreach(Transform slot in SlotsParent)
@@ -126,19 +142,53 @@ public class barrelInventory : MonoBehaviour
     public void AddItemToBarrel(ItemType type) 
     {
         int i = 0;
+        int j = 0;
         foreach(BarrelSlot slot in slotData)
         {
             if(slot.type == type)
             {
                 slotData[i].quantity++;
+
+                //Debug.Log(inventoryOrder.ElementAt(i).type + "    " + inventoryOrder.ElementAt(i).quantity);
+                //Debug.Log(inventoryOrder.Find(slot).ToString());
+
+/*                BarrelSlot targetSlot = inventoryOrder.ElementAt(i);
+                targetSlot.quantity++;*/
+
+/*                foreach (BarrelSlot slotInLL in inventoryOrder)
+                {
+                    if(slotInLL.type == type)
+                    {
+                        BarrelSlot targetSlot = slotInLL;
+                        targetSlot.quantity++;
+                    }
+                    j++;
+                }*/
+
+                RefreshBarrel();
                 return;
             }
             i++;
         }
 
-        slotData[slotData.Length - 1].type = type;
-        slotData[slotData.Length - 1].quantity++;
-        SortInventory();
+        for (int k = 0; k < slotData.Length; k++)
+        {
+            if (slotData[k].quantity == 0)
+            {
+                slotData[k].type = type;
+                slotData[k].quantity++;
+                break;
+            }
+        }
+
+
+        Debug.Log("Adding a new Item");
+        inventoryOrder.AddLast(new BarrelSlot(0, 1, type));
+        
+        SortByOrder();
+        RefreshBarrel();
+
+        //SortInventoryByQuantity();
     }
 
     public void removeItemFromBarrel(ItemType type)
@@ -164,6 +214,9 @@ public class barrelInventory : MonoBehaviour
 
                     UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = slotData[i].quantity.ToString();
                     UISlots[i].numberIcon.SetActive(false);
+
+                    inventoryOrder.Remove(slotData[i]);
+                    //SortByOrder();
                 }
 
                 Debug.Log(slotData[i].quantity);
@@ -200,7 +253,7 @@ public class barrelInventory : MonoBehaviour
     private void RefreshBarrel()
     {
         // Sort Barrel Data
-        SortInventory();
+        //SortInventoryByQuantity();
 
         // Get The Barrel Info;
         int i = 0;
@@ -222,7 +275,12 @@ public class barrelInventory : MonoBehaviour
         }
     }
 
-    private void SortInventory()
+    private void SortByOrder()
+    {
+       inventoryOrder.CopyTo(slotData, 0);
+    }
+
+    private void SortInventoryByQuantity()
     {
         Array.Sort(slotData, (x, y) => y.quantity.CompareTo(x.quantity));
 /*        bool emptyBarrel = true;
@@ -247,7 +305,7 @@ public class barrelInventory : MonoBehaviour
         //Debug.Log(emptyBarrel);
 
         if(emptyBarrel == false)*/
-        {
+        //{
             
             /*            Debug.Log(slotData[0].quantity);
                         Array.Sort()
@@ -278,7 +336,7 @@ public class barrelInventory : MonoBehaviour
                                 }
                             }
                         }*/
-        }
+        //}
     }
 }
 
