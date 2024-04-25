@@ -19,11 +19,11 @@ public class BarrelContent : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private BarrelInventory[] UISlots;
-    [SerializeField] private Transform SlotsParent;
+    //[SerializeField] private BarrelInventory[] UISlots;
+    public Transform SlotsParent;
     private List<BarrelSlot> barrelData;
 
-    private InventoryManager inventoryManager;
+    private InventoryManager inv;
     private playerInteraction playerInt;
     private playerController playerCtrl;
     private UIManager ui;
@@ -42,51 +42,13 @@ public class BarrelContent : MonoBehaviour
     private void Awake()
     {
         // Initialize BarrelData List
-        UISlots = new BarrelInventory[16];
+        //UISlots = new BarrelInventory[16];
         barrelData = new List<BarrelSlot>();
         
-        inventoryManager = FindObjectOfType<InventoryManager>();
+        inv = FindObjectOfType<InventoryManager>();
         playerInt = FindObjectOfType<playerInteraction>();
         playerCtrl = FindObjectOfType<playerController>();
         ui = FindObjectOfType<UIManager>();
-
-        #region Init BarrelSlots
-
-        int j = 0;
-        foreach (Transform slot in SlotsParent)
-        {
-            // Creates a new Inventory Slot item;
-            UISlots[j] = new BarrelInventory(j, slot.gameObject, null, null, null, null);
-            UISlots[j].slot.name = "Container Slot " + (j + 1);
-
-            //Define each child;
-            foreach (Transform childItem in slot)
-            {
-                if (childItem.name == "ItemIcon")
-                {
-                    childItem.name = "ItemIcon";
-                    UISlots[j].itemIcon = childItem.gameObject;
-                }
-                else if (childItem.name == "NumberSlot")
-                {
-                    childItem.name = "NumberBackground";
-                    UISlots[j].numberIcon = childItem.gameObject;
-                }
-                else if (childItem.name == "Exists")
-                {
-                    childItem.name = "ItemExistsOutline";
-                    UISlots[j].exists = childItem.gameObject;
-                }
-                else if (childItem.name == "Selected")
-                {
-                    childItem.name = "ItemSelectedOutline";
-                    UISlots[j].selected = childItem.gameObject;
-                }
-            }
-
-            j++;
-        }
-        #endregion
     }
 
     private void Start()
@@ -98,6 +60,7 @@ public class BarrelContent : MonoBehaviour
                 AddItemToBarrel(value.type);
             }
         }
+
     }
 
     #region Debug Buttons
@@ -212,7 +175,7 @@ public class BarrelContent : MonoBehaviour
 
                 barrelData[i].addQuantity(1);
                 //Debug.Log("The Barrel already contains " + type + " so increasing the quantity to " + barrelData[i].quantity);
-                RefreshDisplay();
+                //RefreshDisplay();
                 return;
             }
         }
@@ -228,7 +191,7 @@ public class BarrelContent : MonoBehaviour
         {
             barrelData.Add(new BarrelSlot(barrelData.Count, 1, type));
         }
-        RefreshDisplay();
+        //RefreshDisplay();
 
         //Debug.Log("A new Barrel Slot has been added for: " + type + "with a quantity of: " + barrelData[barrelData.Count - 1].quantity);
     }
@@ -279,15 +242,15 @@ public class BarrelContent : MonoBehaviour
 
     public void CloseBarrel()
     {
-        for (int i = 0; i < UISlots.Length; i++)
+        for (int i = 0; i < inv.UISlots.Length; i++)
         {
-            UISlots[i].exists.SetActive(false);
+            inv.UISlots[i].exists.SetActive(false);
 
-            UISlots[i].itemIcon.GetComponent<Image>().sprite = null;
-            UISlots[i].itemIcon.SetActive(false);
+            inv.UISlots[i].itemIcon.GetComponent<Image>().sprite = null;
+            inv.UISlots[i].itemIcon.SetActive(false);
 
-            UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
-            UISlots[i].numberIcon.SetActive(false);
+            inv.UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
+            inv.UISlots[i].numberIcon.SetActive(false);
         }
     }
 
@@ -298,26 +261,76 @@ public class BarrelContent : MonoBehaviour
         {
             if (barrelData[i].type != ItemType.None)
             {
-                UISlots[i].exists.SetActive(true);
+                //print("1 Executed: " + i);
+                //print(inv.UISlots[i].exists);
+                inv.UISlots[i].exists.SetActive(true);
 
-                UISlots[i].itemIcon.SetActive(true);
-                UISlots[i].itemIcon.GetComponent<Image>().sprite = inventoryManager.getTexture(barrelData[i].type);
+                inv.UISlots[i].itemIcon.SetActive(true);
+                inv.UISlots[i].itemIcon.GetComponent<Image>().sprite = inv.getTexture(barrelData[i].type);
 
-                UISlots[i].numberIcon.SetActive(true);
-                UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = barrelData[i].quantity.ToString();
+                inv.UISlots[i].numberIcon.SetActive(true);
+                inv.UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = barrelData[i].quantity.ToString();
             }
         }
 
         // Loop the Rest of UI Slots
-        for (int i = barrelData.Count; i < UISlots.Length; i++)
+        for (int i = barrelData.Count; i < inv.UISlots.Length; i++)
         {
-            UISlots[i].exists.SetActive(false);
+            
+            //print(inv.UISlots[i]);
+            inv.UISlots[i].exists.SetActive(false);
 
-            UISlots[i].itemIcon.GetComponent<Image>().sprite = null;
-            UISlots[i].itemIcon.SetActive(false);
+            inv.UISlots[i].itemIcon.GetComponent<Image>().sprite = null;
+            inv.UISlots[i].itemIcon.SetActive(false);
 
-            UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
-            UISlots[i].numberIcon.SetActive(false);
+            inv.UISlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
+            inv.UISlots[i].numberIcon.SetActive(false);
         }
+    }
+
+}
+
+public struct BarrelInventory
+{
+    int id;
+
+    public GameObject slot;
+    public GameObject itemIcon;
+    public GameObject numberIcon;
+    public GameObject exists;
+    public GameObject selected;
+
+    public BarrelInventory(int id, GameObject slot, GameObject itemIcon, GameObject numberIcon, GameObject exists, GameObject selected)
+    {
+        this.id = id;
+        this.slot = slot;
+        this.itemIcon = itemIcon;
+        this.numberIcon = numberIcon;
+        this.exists = exists;
+        this.selected = selected;
+    }
+}
+
+public struct BarrelSlot
+{
+    public int id;
+    public int quantity;
+    public ItemType type;
+
+    public BarrelSlot(int id, int quantity, ItemType type)
+    {
+        this.id = id;
+        this.quantity = quantity;
+        this.type = type;
+    }
+
+    public void addQuantity(int quantityAdded)
+    {
+        quantity += quantityAdded;
+    }
+
+    public void removeQuantity(int quantityRemoved)
+    {
+        quantity -= quantityRemoved;
     }
 }

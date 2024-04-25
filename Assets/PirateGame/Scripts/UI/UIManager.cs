@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform InventoryPanel;
     [SerializeField] Transform ContainerInventoryPanel;
 
+
     private InventoryManager inventoryManager;
     private void Awake()
     {

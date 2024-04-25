@@ -30,9 +30,52 @@ public class InventoryManager : MonoBehaviour
 
     private playerInteraction playerInt;
 
+    [SerializeField] public BarrelInventory[] UISlots;
+
     private void Awake()
     {
         playerInt = FindObjectOfType<playerInteraction>();
+
+        UISlots = new BarrelInventory[16];
+
+        #region Init BarrelSlots
+
+        int j = 0;
+        foreach (Transform slot in container_ContainerInventory)
+        {
+            // Creates a new Inventory Slot item;
+            UISlots[j] = new BarrelInventory(0, slot.gameObject, null, null, null, null);
+            UISlots[j].slot.name = "Container Slot " + (j + 1);
+
+            //Define each child;
+            foreach (Transform childItem in slot)
+            {
+                if (childItem.name == "ItemIcon")
+                {
+                    childItem.name = "ItemIcon" + j;
+                    UISlots[j].itemIcon = childItem.gameObject;
+                }
+                else if (childItem.name == "NumberSlot")
+                {
+                    childItem.name = "NumberBackground";
+                    UISlots[j].numberIcon = childItem.gameObject;
+                }
+                else if (childItem.name == "Exists")
+                {
+                    childItem.name = "Exists" + j;
+                    UISlots[j].exists = childItem.gameObject;
+                    //print(UISlots[j].exists.name);
+                }
+                else if (childItem.name == "Selected")
+                {
+                    childItem.name = "ItemSelectedOutline";
+                    UISlots[j].selected = childItem.gameObject;
+                }
+            }
+
+            j++;
+        }
+        #endregion
     }
 
     private void Start()

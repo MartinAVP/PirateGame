@@ -45,14 +45,15 @@ public class playerController : MonoBehaviour
 
     void Update()
     {
-        if (updateMouse == true)
-        {
-            UpdateMouse();
-        }
 
         if (canMove == true) 
         {
             UpdateMove();
+
+            if (updateMouse == true)
+            {
+                UpdateMouse();
+            }
         }
     }
 
