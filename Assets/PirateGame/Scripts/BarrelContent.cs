@@ -162,7 +162,7 @@ public class BarrelContent : MonoBehaviour
         }
     }
 
-    private void AddItemToBarrel(ItemType type)
+    public void AddItemToBarrel(ItemType type)
     {
         // Check if the Object already Exists
         for (int i = 0; i < barrelData.Count; i++)
@@ -196,7 +196,7 @@ public class BarrelContent : MonoBehaviour
         //Debug.Log("A new Barrel Slot has been added for: " + type + "with a quantity of: " + barrelData[barrelData.Count - 1].quantity);
     }
 
-    private void removeItemFromBarrel(ItemType type) 
+    public void removeItemFromBarrel(ItemType type) 
     {
         // Check if the object being removed quantity is more than 0
         for (int i = 0; i < barrelData.Count; i++)

@@ -68,7 +68,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 else if (childItem.name == "Selected")
                 {
-                    childItem.name = "ItemSelectedOutline";
+                    childItem.name = "Selected";
                     UISlots[j].selected = childItem.gameObject;
                 }
             }
@@ -155,6 +155,12 @@ public class InventoryManager : MonoBehaviour
 
             j++;
         }
+    }
+
+    public void GrabFromContainer(ItemType type)
+    {
+        addItem(type);
+        playerInt.checkObject().GetComponent<BarrelContent>().removeItemFromBarrel(type);
     }
 
     public void addItem(ItemType item)

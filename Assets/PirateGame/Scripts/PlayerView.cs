@@ -21,7 +21,7 @@ public class PlayerView : MonoBehaviour
         tooltip = FindObjectOfType<GameTooltips>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         itemLookedAt = viewForward();
         //
