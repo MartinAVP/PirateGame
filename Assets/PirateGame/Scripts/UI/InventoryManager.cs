@@ -157,10 +157,18 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public BarrelContent openBarrel;
+
     public void GrabFromContainer(ItemType type)
     {
         addItem(type);
-        playerInt.checkObject().GetComponent<BarrelContent>().removeItemFromBarrel(type);
+        openBarrel.removeItemFromBarrel(type);
+    }
+
+    public void PlaceOnContainer(ItemType type)
+    {
+        openBarrel.AddItemToBarrel(type);
+        removeItem(type);
     }
 
     public void addItem(ItemType item)
@@ -213,7 +221,7 @@ public class InventoryManager : MonoBehaviour
                     ContainerSlots[j].numberIcon.SetActive(true);
                     ContainerSlots[j].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[j].quantity.ToString();
 
-                    ContainerSlots[j].slot.GetComponent<Slot>().itemStored = item;
+                    ContainerSlots[j].slot.GetComponent<SlotContainer>().itemStored = item;
                     return;
                 }
             }
@@ -251,10 +259,11 @@ public class InventoryManager : MonoBehaviour
                     InventorySlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
                     InventorySlots[i].icon.GetComponent<Image>().sprite = bananaTexture;
 
+                    // Container Slots
                     ContainerSlots[i].slot.SetActive(false);
                     ContainerSlots[i].numberIcon.SetActive(false);
 
-                    ContainerSlots[i].slot.GetComponent<Slot>().itemStored = ItemType.None;
+                    ContainerSlots[i].slot.GetComponent<SlotContainer>().itemStored = ItemType.None;
 
                     ContainerSlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = InventorySlots[i].quantity.ToString();
                 }

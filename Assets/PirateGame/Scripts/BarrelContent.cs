@@ -62,8 +62,8 @@ public class BarrelContent : MonoBehaviour
         }
 
     }
-
     #region Debug Buttons
+/*
     private void OnGUI()
     {
         if (GUILayout.Button("PrintList"))
@@ -120,8 +120,8 @@ public class BarrelContent : MonoBehaviour
     {
         AddItemToBarrel(ItemType.Plank);
     }
+    */
     #endregion
-    
     private void AccessBarrel()
     {
         if (playerUsingBarrel == true)
@@ -129,13 +129,14 @@ public class BarrelContent : MonoBehaviour
             // toggle Player Snapped
             playerUsingBarrel = false;
 
-            // Get the Camera to be Snapped to the Player
-            ui.closeContainerInventory();
-            CloseBarrel();
-
-            // Get the player Movement to lock
+                        // Get the player Movement to lock
             playerCtrl.canMove = true;
             playerCtrl.updateMouse = true;
+
+            // CloseBarrel UI
+            ui.closeContainerInventory();
+            inv.openBarrel = null;
+            CloseBarrel();
 
             //Debug.Log("Player is no longer snapped to the cannon");
         }
@@ -150,13 +151,14 @@ public class BarrelContent : MonoBehaviour
                 // togglePlayerSnapped
                 playerUsingBarrel = true;
 
-                // Get the player to stand at the playerPos;
-                ui.openContainerInventory();
-                OpenBarrel();
-
                 // Get the player Movement to lock
                 playerCtrl.canMove = false;
                 playerCtrl.updateMouse = false;
+
+                // OpenBarrelUI;
+                ui.openContainerInventory();
+                inv.openBarrel = this;
+                OpenBarrel();
 
             }
         }
@@ -263,6 +265,7 @@ public class BarrelContent : MonoBehaviour
             {
                 //print("1 Executed: " + i);
                 //print(inv.UISlots[i].exists);
+                inv.UISlots[i].slot.GetComponent<SlotContainer>().itemStored = barrelData[i].type;
                 inv.UISlots[i].exists.SetActive(true);
 
                 inv.UISlots[i].itemIcon.SetActive(true);
@@ -276,8 +279,10 @@ public class BarrelContent : MonoBehaviour
         // Loop the Rest of UI Slots
         for (int i = barrelData.Count; i < inv.UISlots.Length; i++)
         {
-            
+
             //print(inv.UISlots[i]);
+            inv.UISlots[i].slot.GetComponent<SlotContainer>().itemStored = ItemType.None;
+
             inv.UISlots[i].exists.SetActive(false);
 
             inv.UISlots[i].itemIcon.GetComponent<Image>().sprite = null;

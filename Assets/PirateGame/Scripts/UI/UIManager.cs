@@ -18,29 +18,35 @@ public class UIManager : MonoBehaviour
     public void openContainerInventory()
     {
         ContainerInventoryPanel.gameObject.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        //Debug.Log("Open Inventory");
+        EnableCursor();
     }
 
     public void closeContainerInventory()
     {
         ContainerInventoryPanel.gameObject.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        //Debug.Log("Close Inventory");
+        DisableCursor();
     }
 
     public void openInventory()
     {
         InventoryPanel.gameObject.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        EnableCursor();
     }
 
     public void closeInventory()
     {
         InventoryPanel.gameObject.SetActive(false);
+        EnableCursor();
+    }
+
+    private void EnableCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    private void DisableCursor() 
+    {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }

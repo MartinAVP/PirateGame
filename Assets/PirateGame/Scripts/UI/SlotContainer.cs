@@ -7,6 +7,7 @@ public class SlotContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     public ItemType itemStored;
     private playerInteraction playerInt;
+    private InventoryManager playerInv;
     private GameObject selected;
     [SerializeField]private bool isContainer;
     [SerializeField] private bool isPlayerContainer;
@@ -14,6 +15,7 @@ public class SlotContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void Start()
     {
         playerInt = FindObjectOfType<playerInteraction>();
+        playerInv = FindObjectOfType<InventoryManager>();
         selected = gameObject.transform.Find("Selected").gameObject;
     }
 
@@ -23,10 +25,15 @@ public class SlotContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if(itemStored != ItemType.None)
         {
             // Check if the script is a ContainerSlot
-            playerInt.handItem(itemStored);
             if (isContainer)
             {
-                Debug.Log("Button Pressed and Item is Container");
+                //Debug.Log("Button Pressed and Item is Container");
+                playerInv.GrabFromContainer(itemStored);
+            }
+            
+            if(isPlayerContainer)
+            {
+                playerInv.PlaceOnContainer(itemStored);
             }
 
             // Check if the script is in a PlayerSlot
