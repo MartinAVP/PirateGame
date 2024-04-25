@@ -20,7 +20,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private InventorySlot[] InventorySlots;
     [SerializeField] private ContainerSlot[] ContainerSlots;
     [SerializeField] private Transform InventoryParent;
-    [SerializeField] private Transform InventoryContainerParent;
+    [SerializeField] private Transform container_PlayerInventory;
+    [SerializeField] public Transform container_ContainerInventory;
 
     [Header("Textures for Items")]
     [SerializeField] private Sprite bananaTexture;
@@ -40,7 +41,7 @@ public class InventoryManager : MonoBehaviour
         ContainerSlots = new ContainerSlot[16];
 
         int j = 0;
-        foreach(Transform slot in InventoryContainerParent)
+        foreach(Transform slot in container_PlayerInventory)
         {
             ContainerSlots[j] = new ContainerSlot(slot.gameObject, null, null, null, null);
             ContainerSlots[j].slot.name = "Slot " + (j + 1);

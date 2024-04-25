@@ -404,6 +404,11 @@ public struct BarrelSlot
 
     public void addQuantity(int quantityAdded)
     {
+        quantity += quantityAdded;
+    }
 
+    public void removeQuantity(int quantityRemoved)
+    {
+        quantity -= quantityRemoved;
     }
 }
