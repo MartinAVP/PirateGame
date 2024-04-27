@@ -8,6 +8,8 @@ TagManager:
   - pickUpItem
   - ToolTipLoc
   - CannonTarget
+  - SelectedOverlay
+  - ExistOverlay
   layers:
   - Default
   - TransparentFX

@@ -16,7 +16,15 @@ public class SlotContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         playerInt = FindObjectOfType<playerInteraction>();
         playerInv = FindObjectOfType<InventoryManager>();
-        selected = gameObject.transform.Find("Selected").gameObject;
+        //selected = gameObject.transform.;
+
+        foreach (Transform child in this.gameObject.transform)
+        {
+            if (child.tag == "SelectedOverlay")
+            {
+                selected = child.gameObject;
+            }
+        }
     }
 
     public void selectItem()
@@ -43,8 +51,9 @@ public class SlotContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         //mouse_over = true;
-        selected.SetActive(true);
-        Debug.Log("Mouse enter");
+        if(itemStored != ItemType.None)
+            selected.SetActive(true);
+        //Debug.Log("Mouse enter");
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -52,6 +61,6 @@ public class SlotContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         //mouse_over = false;
         selected.SetActive(false);
         //this.transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
-        Debug.Log("Mouse exit");
+        //Debug.Log("Mouse exit");
     }
 }

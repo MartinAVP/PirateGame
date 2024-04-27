@@ -108,8 +108,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1195284775033879832}
-  - {fileID: 5808656837733952680}
   - {fileID: 215827488841887563}
+  - {fileID: 5808656837733952680}
   - {fileID: 1281787018547144001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -239,8 +239,8 @@ GameObject:
   - component: {fileID: 4344665237258973245}
   - component: {fileID: 212902929464009773}
   m_Layer: 5
-  m_Name: Exists
-  m_TagString: Untagged
+  m_Name: ExistOverlay
+  m_TagString: ExistOverlay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -449,8 +449,8 @@ GameObject:
   - component: {fileID: 746470016729622860}
   - component: {fileID: 145130038852385084}
   m_Layer: 5
-  m_Name: Selected
-  m_TagString: Untagged
+  m_Name: SelectedOverlay
+  m_TagString: SelectedOverlay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

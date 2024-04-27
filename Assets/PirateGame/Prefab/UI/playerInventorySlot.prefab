@@ -87,8 +87,8 @@ GameObject:
   - component: {fileID: 6421348560656857003}
   - component: {fileID: 7160206596105199282}
   m_Layer: 5
-  m_Name: Exists
-  m_TagString: Untagged
+  m_Name: ExistOverlay
+  m_TagString: ExistOverlay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -314,8 +314,8 @@ GameObject:
   - component: {fileID: 4733446441674617086}
   - component: {fileID: 5759805913908606350}
   m_Layer: 5
-  m_Name: Selected
-  m_TagString: Untagged
+  m_Name: SelectedOverlay
+  m_TagString: SelectedOverlay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

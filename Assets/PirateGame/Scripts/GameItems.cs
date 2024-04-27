@@ -32,18 +32,3 @@ public class GameItems : MonoBehaviour
         }
     }
 }
-
-public enum ItemType
-{
-    None,
-    Banana,
-    Plank,
-    CannonBall
-}
-
-public enum InteractType
-{
-    None,
-    Cannon,
-    Barrel
-}
