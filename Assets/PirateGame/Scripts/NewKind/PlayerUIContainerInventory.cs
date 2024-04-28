@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerUIContainerInventory : MonoBehaviour
 {
-    [SerializeField] public Transform PlayerInventorySlotsTransform;
+    private Transform PlayerInventorySlotsTransform;
 
     //List<UIContainerSlot> playerContainerSlots;
     UIContainerSlot[] playerContainerSlots;
@@ -17,6 +17,7 @@ public class PlayerUIContainerInventory : MonoBehaviour
     private void Awake()
     {
         inventory = GetComponent<PlayerInventoryManager>();
+        PlayerInventorySlotsTransform = GetComponent<PlayerUIManager>().containerPlayerInventorySlots;
     }
 
     private void Start()

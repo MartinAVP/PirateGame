@@ -104,6 +104,7 @@ public class PlayerInventoryManager : MonoBehaviour
                     playerInventory.RemoveAt(i);
                 }
 
+                playerContainerInv.RefreshInventory();
                 //Debug.Log("The Banana is already instantiated in the inventory");
                 return;
             }

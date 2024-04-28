@@ -30,13 +30,13 @@ public class InventoryManager : MonoBehaviour
 
     private playerInteraction playerInt;
 
-    [SerializeField] public BarrelInventory[] UISlots;
+    //[SerializeField] public BarrelInventory[] UISlots;
 
     private void Awake()
     {
         playerInt = FindObjectOfType<playerInteraction>();
 
-        UISlots = new BarrelInventory[16];
+        //UISlots = new BarrelInventory[16];
 
         #region Init BarrelSlots
 
@@ -44,8 +44,8 @@ public class InventoryManager : MonoBehaviour
         foreach (Transform slot in container_ContainerInventory)
         {
             // Creates a new Inventory Slot item;
-            UISlots[j] = new BarrelInventory(0, slot.gameObject, null, null, null, null);
-            UISlots[j].slot.name = "Container Slot " + (j + 1);
+            //UISlots[j] = new BarrelInventory(0, slot.gameObject, null, null, null, null);
+            //UISlots[j].slot.name = "Container Slot " + (j + 1);
 
             //Define each child;
             foreach (Transform childItem in slot)
@@ -53,23 +53,23 @@ public class InventoryManager : MonoBehaviour
                 if (childItem.name == "ItemIcon")
                 {
                     childItem.name = "ItemIcon" + j;
-                    UISlots[j].itemIcon = childItem.gameObject;
+                   // UISlots[j].itemIcon = childItem.gameObject;
                 }
                 else if (childItem.name == "NumberSlot")
                 {
                     childItem.name = "NumberBackground";
-                    UISlots[j].numberIcon = childItem.gameObject;
+                    //UISlots[j].numberIcon = childItem.gameObject;
                 }
                 else if (childItem.name == "Exists")
                 {
                     childItem.name = "Exists" + j;
-                    UISlots[j].exists = childItem.gameObject;
+                    //UISlots[j].exists = childItem.gameObject;
                     //print(UISlots[j].exists.name);
                 }
                 else if (childItem.name == "Selected")
                 {
                     childItem.name = "Selected";
-                    UISlots[j].selected = childItem.gameObject;
+                    //UISlots[j].selected = childItem.gameObject;
                 }
             }
 
@@ -162,12 +162,12 @@ public class InventoryManager : MonoBehaviour
     public void GrabFromContainer(ItemType type)
     {
         addItem(type);
-        openBarrel.removeItemFromBarrel(type);
+        //openBarrel.removeItemFromBarrel(type);
     }
 
     public void PlaceOnContainer(ItemType type)
     {
-        openBarrel.AddItemToBarrel(type);
+        //openBarrel.AddItemToBarrel(type);
         removeItem(type);
     }
 

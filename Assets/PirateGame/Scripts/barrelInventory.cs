@@ -8,7 +8,7 @@ using System.Linq;
 
 public class barrelInventory : MonoBehaviour
 {
-    [SerializeField] private BarrelSlot[] slotData;
+/*    [SerializeField] private BarrelSlot[] slotData;
     [SerializeField] private BarrelInventory[] UISlots;
     [SerializeField] private Transform SlotsParent;
     //[SerializeField] private Transform[] slotLocations;
@@ -88,12 +88,12 @@ public class barrelInventory : MonoBehaviour
         UISlots = new BarrelInventory[16];
         inventoryOrder = new List<BarrelSlot>();
 
-        /*        int i = 0;
+        *//*        int i = 0;
                 foreach(Transform slot in SlotsParent)
                 {
                     slot.transform.name = "Container Slot " + (i + 1);
                     slotLocations[i++] = slot;
-                }*/
+                }*//*
         // Define the Slots Data for the Barrel
         int i = 0;
         foreach(BarrelSlot slot in slotData)
@@ -229,7 +229,7 @@ public class barrelInventory : MonoBehaviour
                 return;
             }
         }
-/*        foreach (BarrelSlot slot in slotData)
+*//*        foreach (BarrelSlot slot in slotData)
         {
             if(slot.type == type)
             {
@@ -251,7 +251,7 @@ public class barrelInventory : MonoBehaviour
             {
                 Debug.LogWarning("Item Not Found");
             }*//*
-        }*/
+        }*//*
 
     }
 
@@ -311,7 +311,7 @@ public class barrelInventory : MonoBehaviour
     private void SortInventoryByQuantity()
     {
         Array.Sort(slotData, (x, y) => y.quantity.CompareTo(x.quantity));
-/*        bool emptyBarrel = true;
+*//*        bool emptyBarrel = true;
         int i = 0;
         // Check if Barrel is Empty
         foreach(BarrelSlot slot in slotData)
@@ -332,10 +332,10 @@ public class barrelInventory : MonoBehaviour
 
         //Debug.Log(emptyBarrel);
 
-        if(emptyBarrel == false)*/
+        if(emptyBarrel == false)*//*
         //{
             
-            /*            Debug.Log(slotData[0].quantity);
+            *//*            Debug.Log(slotData[0].quantity);
                         Array.Sort()
                         // While the first slot is empty
                         while (slotData[0].quantity == 0)
@@ -363,7 +363,7 @@ public class barrelInventory : MonoBehaviour
                                     }
                                 }
                             }
-                        }*/
+                        }*//*
         //}
-    }
+    }*/
 }
