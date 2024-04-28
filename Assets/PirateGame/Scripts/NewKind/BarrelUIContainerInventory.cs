@@ -16,11 +16,20 @@ public class ContainerUIContainerInventory : MonoBehaviour
     private void Awake()
     {
         containerInventory = GetComponent<BarrelContentManager>();
-        ContainerInventorySlotsTransform = FindFirstObjectByType<PlayerUIManager>().containerInventorySlots;
     }
 
-    private void Start()
+    private void OnGUI()
     {
+        if (GUILayout.Button("PrintList"))
+        {
+            RefreshInventory();
+        }
+    }
+
+        private void Start()
+    {
+        ContainerInventorySlotsTransform = FindFirstObjectByType<PlayerUIManager>().containerInventorySlots;
+        Debug.Log(ContainerInventorySlotsTransform.gameObject.name);
         containerSlots = new UIContainerSlot[ContainerInventorySlotsTransform.childCount];
         int j = 0;
         foreach (Transform child in ContainerInventorySlotsTransform.transform)
@@ -61,6 +70,8 @@ public class ContainerUIContainerInventory : MonoBehaviour
 
             j++;
         }
+
+        RefreshInventory();
     }
 
     public void RefreshInventory()
@@ -69,6 +80,7 @@ public class ContainerUIContainerInventory : MonoBehaviour
         foreach (BarrelSlot item in containerInventory.barrelData)
         {
             // Get all items in the player inventory and assign them to the UI
+            Debug.Log("There is an item on slot " + i);
 
             // Set the Image to the slot icon of the item at the index
             containerSlots[i].itemIcon.SetActive(true);

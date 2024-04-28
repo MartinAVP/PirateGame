@@ -24,7 +24,7 @@ public class PlayerInventoryManager : MonoBehaviour
         }
     }*/
 
-    private void OnGUI()
+/*    private void OnGUI()
     {
         if (GUILayout.Button("PrintList"))
         {
@@ -58,7 +58,7 @@ public class PlayerInventoryManager : MonoBehaviour
             removeItem(ItemType.Plank);
         }
 
-    }
+    }*/
 
     public void addItem(ItemType type)
     {
