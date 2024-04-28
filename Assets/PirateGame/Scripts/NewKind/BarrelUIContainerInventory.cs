@@ -22,14 +22,14 @@ public class ContainerUIContainerInventory : MonoBehaviour
     {
         if (GUILayout.Button("PrintList"))
         {
-            RefreshInventory();
+            UpdateBarrelDisplay();
         }
     }
 
-        private void Start()
+    private void Start()
     {
         ContainerInventorySlotsTransform = FindFirstObjectByType<PlayerUIManager>().containerInventorySlots;
-        Debug.Log(ContainerInventorySlotsTransform.gameObject.name);
+        //Debug.Log(ContainerInventorySlotsTransform.gameObject.name);
         containerSlots = new UIContainerSlot[ContainerInventorySlotsTransform.childCount];
         int j = 0;
         foreach (Transform child in ContainerInventorySlotsTransform.transform)
@@ -71,20 +71,20 @@ public class ContainerUIContainerInventory : MonoBehaviour
             j++;
         }
 
-        RefreshInventory();
+        UpdateBarrelDisplay();
     }
 
-    public void RefreshInventory()
+    public void UpdateBarrelDisplay()
     {
         int i = 0;
         foreach (BarrelSlot item in containerInventory.barrelData)
         {
             // Get all items in the player inventory and assign them to the UI
-            Debug.Log("There is an item on slot " + i);
+            //Debug.Log("There is an item on slot " + i);
 
             // Set the Image to the slot icon of the item at the index
             containerSlots[i].itemIcon.SetActive(true);
-            containerSlots[i].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().SearchObject(containerInventory.barrelData[i].type).itemIcon;
+            containerSlots[i].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().FindItemTypeData(containerInventory.barrelData[i].type).itemIcon;
 
             // Set the number icon
             containerSlots[i].numberIcon.SetActive(true);
@@ -104,18 +104,43 @@ public class ContainerUIContainerInventory : MonoBehaviour
         for (int j = i; j < containerSlots.Length; j++)
         {
             // Set the Image to null
-            containerSlots[j].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().SearchObject(ItemType.None).itemIcon;
+            containerSlots[j].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().FindItemTypeData(ItemType.None).itemIcon;
             containerSlots[j].itemIcon.SetActive(false);
 
             // Set the number icon
-            containerSlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
-            containerSlots[i].numberIcon.SetActive(false);
+            containerSlots[j].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
+            containerSlots[j].numberIcon.SetActive(false);
 
             // Set the item exists slot to disabled
-            containerSlots[i].exists.SetActive(false);
+            containerSlots[j].exists.SetActive(false);
 
             // Set the itemStored type to none in the UI Slot
-            containerSlots[i].slot.GetComponent<SlotContainer>().itemStored = ItemType.None;
+            containerSlots[j].slot.GetComponent<SlotContainer>().itemStored = ItemType.None;
+        }
+    }
+
+    public void OpenBarrel()
+    {
+        UpdateBarrelDisplay();
+    }
+
+    public void CloseBarrel()
+    {
+        for (int j = 0; j < containerSlots.Length; j++)
+        {
+            // Set the Image to null
+            containerSlots[j].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().FindItemTypeData(ItemType.None).itemIcon;
+            containerSlots[j].itemIcon.SetActive(false);
+
+            // Set the number icon
+            containerSlots[j].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
+            containerSlots[j].numberIcon.SetActive(false);
+
+            // Set the item exists slot to disabled
+            containerSlots[j].exists.SetActive(false);
+
+            // Set the itemStored type to none in the UI Slot
+            containerSlots[j].slot.GetComponent<SlotContainer>().itemStored = ItemType.None;
         }
     }
 }

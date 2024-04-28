@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameAssets : MonoBehaviour
 {
     [SerializeField] public List<item> GameItems;
+    [SerializeField] public List<interactable> GameInteractables;
 
     public static GameAssets instance;
 
@@ -23,11 +24,24 @@ public class GameAssets : MonoBehaviour
         }
     }
 
-    public item SearchObject(ItemType type)
+    public item FindItemTypeData(ItemType type)
     {
         foreach (item targetItem in GameItems)
         {
             if(targetItem.type == type)
+            {
+                return targetItem;
+            }
+
+        }
+        return null;
+    }
+
+    public interactable FindInteractableTypeData(InteractType type)
+    {
+        foreach (interactable targetItem in GameInteractables)
+        {
+            if (targetItem.type == type)
             {
                 return targetItem;
             }
@@ -45,15 +59,14 @@ public class item
     public Sprite itemIcon;
     public GameObject handItemPrefab;
     public GameObject toolTip;
+}
 
-/*    public item(int id, ItemType type, Sprite itemIcon, GameObject handItemPrefab, GameObject toolTip)
-    {
-        this.id = id;
-        this.type = type;
-        this.itemIcon = itemIcon;
-        this.handItemPrefab = handItemPrefab;
-        this.toolTip = toolTip;
-    }*/
+[System.Serializable]
+public class interactable
+{
+    public int id;
+    public InteractType type;
+    public GameObject toolTip;
 }
 
 public enum ItemType

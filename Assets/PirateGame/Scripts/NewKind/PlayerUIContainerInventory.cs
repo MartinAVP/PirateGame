@@ -73,7 +73,7 @@ public class PlayerUIContainerInventory : MonoBehaviour
 
             // Set the Image to the slot icon of the item at the index
             playerContainerSlots[i].itemIcon.SetActive(true);
-            playerContainerSlots[i].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().SearchObject(inventory.playerInventory[i].type).itemIcon;
+            playerContainerSlots[i].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().FindItemTypeData(inventory.playerInventory[i].type).itemIcon;
 
             // Set the number icon
             playerContainerSlots[i].numberIcon.SetActive(true);
@@ -93,7 +93,7 @@ public class PlayerUIContainerInventory : MonoBehaviour
         for (int j = i; j < playerContainerSlots.Length; j++)
         {
             // Set the Image to null
-            playerContainerSlots[j].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().SearchObject(ItemType.None).itemIcon;
+            playerContainerSlots[j].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().FindItemTypeData(ItemType.None).itemIcon;
             playerContainerSlots[j].itemIcon.SetActive(false);
 
             // Set the number icon

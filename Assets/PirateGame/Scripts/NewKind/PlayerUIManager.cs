@@ -39,4 +39,28 @@ public class PlayerUIManager : MonoBehaviour
                 containerInventorySlots = containerInventoryChild;
         }
     }
+
+    public void openContainerInventory()
+    {
+        containerInventory.gameObject.SetActive(true);
+        EnableCursor();
+    }
+
+    public void closeContainerInventory()
+    {
+        containerInventory.gameObject.SetActive(false);
+        EnableCursor();
+    }
+
+    private void EnableCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    private void DisableCursor()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }
