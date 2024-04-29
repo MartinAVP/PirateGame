@@ -22,6 +22,7 @@ public class playerInteraction : MonoBehaviour
     private PlayerUIInventoryWheel wheelUI;
 
     private bool hasItemInHand = false;
+    [HideInInspector] public bool canOpenInventoryWheel = true;
 
     private bool usingCannon;
     private void Start()
@@ -95,21 +96,25 @@ public class playerInteraction : MonoBehaviour
 
     public void OpenPlayerWheel(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        // Check if player can access the wheel
+        if (canOpenInventoryWheel)
         {
-            //print("E is performed");
-            controller.updateMouse = false;
-            //ui.openInventory();
-            wheelUI.RefreshInventory();
-            playerUI.openInventoryWheel();
+            if (context.performed)
+            {
+                //print("E is performed");
+                controller.updateMouse = false;
+                //ui.openInventory();
+                wheelUI.RefreshInventory();
+                playerUI.openInventoryWheel();
             
-        }
-        else if (context.canceled)
-        {
-            //print("E no longer");
-            controller.updateMouse = true;
-            //ui.closeInventory();
-            playerUI.closeInventoryWheel();
+            }
+            else if (context.canceled)
+            {
+                //print("E no longer");
+                controller.updateMouse = true;
+                //ui.closeInventory();
+                playerUI.closeInventoryWheel();
+            }
         }
     }
 

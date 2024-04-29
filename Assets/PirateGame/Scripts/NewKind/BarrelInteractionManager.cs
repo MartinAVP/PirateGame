@@ -48,6 +48,9 @@ public class BarrelInteractionManager : MonoBehaviour
             containerUI.CloseBarrel();
             playerUI.closeContainerInventory();
 
+            // Disable Player Wheel from Opening
+            playerInt.canOpenInventoryWheel = true;
+
             //Debug.Log("Player is no longer snapped to the cannon");
         }
 
@@ -69,6 +72,8 @@ public class BarrelInteractionManager : MonoBehaviour
                 containerUI.OpenBarrel();
                 playerUI.openContainerInventory();
 
+                // Enabling Player Wheel from Opening
+                playerInt.canOpenInventoryWheel = true;
             }
         }
     }

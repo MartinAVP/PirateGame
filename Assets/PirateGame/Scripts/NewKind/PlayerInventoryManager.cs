@@ -85,4 +85,28 @@ public class PlayerInventoryManager : MonoBehaviour
 
         return false;
     }
+
+    #region eventBus
+    private void OnEnable()
+    {
+        GameEventBus.Subscribe(GameEventsType.INTERACT, ItemInteract);
+    }
+    private void OnDisable()
+    {
+        GameEventBus.Unsubscribe(GameEventsType.INTERACT, ItemInteract);
+    }
+    #endregion
+
+    private void ItemInteract()
+    {
+        //print("Interacted");
+        if (playerInt.checkObject() == null) { return; }
+        //print(playerInt.checkObject().tag);
+        if (playerInt.checkObject().tag == "pickUpItem")
+        {
+            addItem(playerInt.checkObject().GetComponent<PickUpItem>().itemType);
+            playerContainerInv.RefreshInventory();
+            Destroy(playerInt.checkObject().gameObject);
+        }
+    }
 }
