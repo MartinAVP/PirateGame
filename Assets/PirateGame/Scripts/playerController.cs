@@ -15,6 +15,7 @@ public class playerController : MonoBehaviour
     [SerializeField] LayerMask ground;
 
     [HideInInspector] public bool canMove = true;
+    [HideInInspector] public bool updateMouse = true;
 
     public float jumpHeight = 6f;
     float velocityY;
@@ -44,10 +45,15 @@ public class playerController : MonoBehaviour
 
     void Update()
     {
+
         if (canMove == true) 
         {
-            UpdateMouse();
             UpdateMove();
+
+            if (updateMouse == true)
+            {
+                UpdateMouse();
+            }
         }
     }
 

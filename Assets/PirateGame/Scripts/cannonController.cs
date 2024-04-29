@@ -104,7 +104,6 @@ public class cannonController : MonoBehaviour
 
     private void ShootCannon()
     {
-
         if (hasPlayerSnapped == true)
         {
             // toggle Player Snapped
@@ -121,6 +120,7 @@ public class cannonController : MonoBehaviour
         }
 
         else if (playerInt.checkObject() == null) { return; }
+        else if (playerInt.checkObject().tag != "Interactable") { return; }
         else if (playerInt.checkObject().transform.parent.gameObject == this.gameObject)
         {
             //Debug.Log("Shoot Called");
@@ -151,6 +151,8 @@ public class cannonController : MonoBehaviour
         GameObject shotFired = Instantiate(cannonProyectile, firePos.transform.position, pivot.transform.rotation);
 
         firePos.transform.rotation = pivot.transform.rotation;
+
+        shotFired.GetComponent<CannonBall>().cannonHit = FindObjectOfType<CannonHitRegister>();
 
         // adds the Force to the cannon Ball.
         shotFired.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back * 30f, ForceMode.Impulse);

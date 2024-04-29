@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
+  - pickUpItem
+  - ToolTipLoc
+  - CannonTarget
+  - SelectedOverlay
+  - ExistOverlay
   layers:
   - Default
   - TransparentFX
@@ -12,7 +17,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - UILayer
   - 
   - 
   - 
