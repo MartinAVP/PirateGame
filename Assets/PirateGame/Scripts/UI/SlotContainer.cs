@@ -62,24 +62,34 @@ public class SlotContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         // Check if the Container Slot is empty
         if(itemStored != ItemType.None)
         {
+            updateBarrelLookingAt();
             // Check if the script is a ContainerSlot
             if (isContainer)
             {
                 // Item is in container, Remove from container add to Player Inventory
-                barrelContent.removeItemFromBarrel(itemStored);
                 playerInventory.addItem(itemStored);
+                barrelContent.removeItemFromBarrel(itemStored);
             }
             
             if(isPlayerContainer)
             {
                 // Item is in Player Inventory, Add to Container, remove from Player Inventory
-                playerInventory.removeItem(itemStored);
+
                 barrelContent.AddItemToBarrel(itemStored);
+                playerInventory.removeItem(itemStored);
             }
+
 
             // Update the UI for Both Barrel and Player inventories
             inventoryUI.RefreshInventory();
             containerUI.UpdateBarrelDisplay();
+
+            // Disable the item selected overlay if the slot is empty after transfering
+            if(itemStored == ItemType.None)
+            {
+                selected.SetActive(false);
+            }
+
         }
     }
 

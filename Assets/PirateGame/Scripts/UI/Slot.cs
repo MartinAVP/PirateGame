@@ -16,7 +16,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void selectItem()
     {
-        playerInt.handItem(itemStored);
+        if(itemStored != ItemType.None)
+            playerInt.handItem(itemStored);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

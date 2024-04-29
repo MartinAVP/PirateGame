@@ -9,10 +9,12 @@ public class PlayerInventoryManager : MonoBehaviour
     public List<InventoryItem> playerInventory;
 
     private PlayerUIContainerInventory playerContainerInv;
+    private playerInteraction playerInt;
 
     private void Awake()
     {
         playerContainerInv = GetComponent<PlayerUIContainerInventory>();
+        playerInt = GetComponent<playerInteraction>();
         playerInventory = new List<InventoryItem>();
     }
 
@@ -102,6 +104,10 @@ public class PlayerInventoryManager : MonoBehaviour
                 else
                 {
                     playerInventory.RemoveAt(i);
+                    if(playerInt.currentItemInHand == type)
+                    {
+                        playerInt.handItem(ItemType.None);
+                    }
                 }
 
                 playerContainerInv.RefreshInventory();
@@ -111,5 +117,16 @@ public class PlayerInventoryManager : MonoBehaviour
         }
 
         Debug.LogWarning("There are no more items of type: " + type);
+    }
+
+    public bool hasItem(ItemType type)
+    {
+        foreach (InventoryItem item in playerInventory)
+        {
+            if (item.type == type)
+                return true;
+        }
+
+        return false;
     }
 }

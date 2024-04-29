@@ -14,8 +14,12 @@ public class playerInteraction : MonoBehaviour
 
     private UIManager ui;
     private playerController controller;
-    private InventoryManager inventory;
+    private PlayerUIManager inventory;
     private GameItems gameItems;
+
+    private GameAssets gameAssets;
+    private PlayerUIManager playerUI;
+    private PlayerUIInventoryWheel wheelUI;
 
     private bool hasItemInHand = false;
 
@@ -25,8 +29,12 @@ public class playerInteraction : MonoBehaviour
         CameraPos = Camera.main.transform;
         ui = FindObjectOfType<UIManager>();
         controller = FindObjectOfType<playerController>();
-        inventory = FindObjectOfType<InventoryManager>();
+        inventory = FindFirstObjectByType<PlayerUIManager>();
         gameItems = FindObjectOfType<GameItems>();
+
+        gameAssets = FindObjectOfType<GameAssets>();
+        playerUI = GetComponent<PlayerUIManager>();
+        wheelUI = GetComponent<PlayerUIInventoryWheel>();
     }
 
     public Transform getCameraPos(){ return CameraLoc; }
@@ -40,14 +48,15 @@ public class playerInteraction : MonoBehaviour
     }*/
 
 
-    private ItemType currentItemInHand;
+    public ItemType currentItemInHand;
     GameObject itemHeld = null;
     public void handItem(ItemType type)
     {
         // Player is not Holding an Item
         if (hasItemInHand == false)
         {
-            itemHeld = Instantiate(gameItems.GetPrefab(type), handItemPos.position, handItemPos.transform.rotation);
+            //itemHeld = Instantiate(gameItems.GetPrefab(type), handItemPos.position, handItemPos.transform.rotation);
+            itemHeld = Instantiate(gameAssets.FindItemTypeData(type).handItemPrefab, handItemPos.position, handItemPos.transform.rotation);
             itemHeld.transform.parent = CameraPos;
 
             currentItemInHand = type;
@@ -68,7 +77,8 @@ public class playerInteraction : MonoBehaviour
                 if(type == ItemType.None) { Destroy(itemHeld); return; }
 
                 Destroy(itemHeld);
-                itemHeld = Instantiate(gameItems.GetPrefab(type), handItemPos.position, handItemPos.transform.rotation);
+                itemHeld = Instantiate(gameAssets.FindItemTypeData(type).handItemPrefab, handItemPos.position, handItemPos.transform.rotation);
+                //itemHeld = Instantiate(gameAssets.FindItemTypeData(type).handItemPrefab, handItemPos.position, handItemPos.transform.rotation);
                 itemHeld.transform.parent = CameraPos;
                 currentItemInHand = type;
             }
@@ -91,19 +101,23 @@ public class playerInteraction : MonoBehaviour
         }
     }
 
-    public void InventoryAccesing(InputAction.CallbackContext context)
+    public void OpenPlayerWheel(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             //print("E is performed");
             controller.updateMouse = false;
-            ui.openInventory();
+            //ui.openInventory();
+            wheelUI.RefreshInventory();
+            playerUI.openInventoryWheel();
+            
         }
         else if (context.canceled)
         {
             //print("E no longer");
             controller.updateMouse = true;
-            ui.closeInventory();
+            //ui.closeInventory();
+            playerUI.closeInventoryWheel();
         }
     }
 

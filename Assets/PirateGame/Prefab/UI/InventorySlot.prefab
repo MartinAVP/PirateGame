@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 6804909473936761114}
   - component: {fileID: 1296626907799018623}
   m_Layer: 5
-  m_Name: NumberVar
+  m_Name: NumberSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 5468319547865236755}
   - component: {fileID: 7773760650582527751}
   m_Layer: 5
-  m_Name: SlotItemIcon
+  m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

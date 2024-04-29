@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUIContainerInventory : MonoBehaviour
+public class PlayerUIInventoryWheel : MonoBehaviour
 {
     private Transform PlayerInventorySlotsTransform;
 
     //List<UIContainerSlot> playerContainerSlots;
-    UIContainerSlot[] playerContainerSlots;
+    [SerializeField] public UIPlayerWheelSlot[] playerContainerSlots;
 
     private PlayerInventoryManager inventory;
 
@@ -18,12 +17,14 @@ public class PlayerUIContainerInventory : MonoBehaviour
     private void Awake()
     {
         inventory = GetComponent<PlayerInventoryManager>();
-        PlayerInventorySlotsTransform = GetComponent<PlayerUIManager>().containerPlayerInventorySlots;
     }
 
     private void Start()
     {
-        playerContainerSlots = new UIContainerSlot[PlayerInventorySlotsTransform.childCount];
+        print(GetComponent<PlayerUIManager>().playerWheelSlots.transform);
+        PlayerInventorySlotsTransform = GetComponent<PlayerUIManager>().playerWheelSlots.transform;
+
+        playerContainerSlots = new UIPlayerWheelSlot[GetComponent<PlayerUIManager>().playerWheelSlots.childCount];
 
         int j = 0;
         foreach (Transform child in PlayerInventorySlotsTransform.transform)
@@ -39,21 +40,10 @@ public class PlayerUIContainerInventory : MonoBehaviour
             {
                 if (childItem.name == "Item")
                 {
+                    childItem.name = "ItemIcon " + j;
                     playerContainerSlots[j].itemIcon = childItem.gameObject;
-                    childItem.name = "ItemIcon";
                 }
-                if (childItem.tag == "ExistOverlay")
-                {
-                    //childItem.name = "ItemIcon";
-                    playerContainerSlots[j].exists = childItem.gameObject;
-                    playerContainerSlots[j].exists.name = "ExistOverlay " + j;
-                }
-                if (childItem.tag == "SelectedOverlay")
-                {
-                    //childItem.name = "ItemIcon";
-                    playerContainerSlots[j].selected = childItem.gameObject;
-                    playerContainerSlots[j].selected.name = "SelectedOverlay " + j;
-                }
+
                 if (childItem.name == "NumberSlot")
                 {
                     childItem.name = "NumberBackground";
@@ -69,7 +59,7 @@ public class PlayerUIContainerInventory : MonoBehaviour
     public void RefreshInventory()
     {
         int i = 0;
-        foreach(InventoryItem item in inventory.playerInventory)
+        foreach (InventoryItem item in inventory.playerInventory)
         {
             // Get all items in the player inventory and assign them to the UI
 
@@ -81,17 +71,13 @@ public class PlayerUIContainerInventory : MonoBehaviour
             playerContainerSlots[i].numberIcon.SetActive(true);
             playerContainerSlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = inventory.playerInventory[i].quantity.ToString();
 
-            // Set the item exists slot to enabled
-            playerContainerSlots[i].exists.SetActive(true);
-
             // Set the itemStored type in the UI Slot
-            playerContainerSlots[i].slot.GetComponent<SlotContainer>().itemStored = inventory.playerInventory[i].type;
+            playerContainerSlots[i].slot.GetComponent<Slot>().itemStored = inventory.playerInventory[i].type;
 
             // Get all the empty slots in the UI and empty them
             i++;
         }
 
-        // Start at the end of the of the first iteration, and null the rest of the items
         for (int j = i; j < playerContainerSlots.Length; j++)
         {
             // Set the Image to null
@@ -102,11 +88,13 @@ public class PlayerUIContainerInventory : MonoBehaviour
             playerContainerSlots[i].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
             playerContainerSlots[i].numberIcon.SetActive(false);
 
-            // Set the item exists slot to disabled
-            playerContainerSlots[i].exists.SetActive(false);
-
             // Set the itemStored type to none in the UI Slot
-            playerContainerSlots[i].slot.GetComponent<SlotContainer>().itemStored = ItemType.None;
+            playerContainerSlots[i].slot.GetComponent<Slot>().itemStored = ItemType.None;
         }
+    }
+
+    private void Condense()
+    {
+
     }
 }

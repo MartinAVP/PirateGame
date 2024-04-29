@@ -10,14 +10,17 @@ public class PlayerUIManager : MonoBehaviour
 
     // Panels
     [HideInInspector] public Transform mainLayout;
-    [HideInInspector] public Transform playerWheel;
+    public Transform playerWheel;
     [HideInInspector] public Transform containerInventory;
 
     // Container Positions
     [HideInInspector] public Transform containerPlayerInventorySlots;
     [HideInInspector] public Transform containerInventorySlots;
 
-    private void Awake()
+    // Player Wheel Positions
+    public Transform playerWheelSlots;
+
+    private void OnEnable()
     {
         // Find the Panels
         foreach (Transform canvasChild in playerCanvas)
@@ -38,8 +41,30 @@ public class PlayerUIManager : MonoBehaviour
             else if(containerInventoryChild.name == "ContainerInventorySlots")
                 containerInventorySlots = containerInventoryChild;
         }
+
+        // Find the PlayerWheel Positions
+        foreach (Transform playerWheelChild in playerWheel)
+        {
+            if (playerWheelChild.name == "PlayerQuickInventory")
+                playerWheelSlots = playerWheelChild;
+        }
+
     }
 
+    // Inventory Wheel Public Functions
+    public void openInventoryWheel()
+    {
+        playerWheel.gameObject.SetActive(true);
+        EnableCursor();
+    }
+
+    public void closeInventoryWheel()
+    {
+        playerWheel.gameObject.SetActive(false);
+        DisableCursor();
+    }
+
+    // Container Inventory Public Functions
     public void openContainerInventory()
     {
         containerInventory.gameObject.SetActive(true);
@@ -49,7 +74,7 @@ public class PlayerUIManager : MonoBehaviour
     public void closeContainerInventory()
     {
         containerInventory.gameObject.SetActive(false);
-        EnableCursor();
+        DisableCursor();
     }
 
     private void EnableCursor()

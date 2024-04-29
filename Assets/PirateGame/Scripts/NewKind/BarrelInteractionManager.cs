@@ -16,7 +16,7 @@ public class BarrelInteractionManager : MonoBehaviour
     }
     #endregion
 
-    private bool playerUsingBarrel = false;
+    public bool playerUsingBarrel = false;
 
     private playerController playerCtrl;
     private playerInteraction playerInt;
