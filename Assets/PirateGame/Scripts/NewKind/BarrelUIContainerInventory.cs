@@ -13,10 +13,12 @@ public class ContainerUIContainerInventory : MonoBehaviour
     UIContainerSlot[] containerSlots;
 
     private BarrelContentManager containerInventory;
+    private PlayerUIContainerInventory playerInventoryUI;
 
     private void Awake()
     {
         containerInventory = GetComponent<BarrelContentManager>();
+        playerInventoryUI = FindFirstObjectByType<PlayerUIContainerInventory>();
     }
 
     private void Start()
