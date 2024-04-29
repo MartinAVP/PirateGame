@@ -18,14 +18,6 @@ public class ContainerUIContainerInventory : MonoBehaviour
         containerInventory = GetComponent<BarrelContentManager>();
     }
 
-    private void OnGUI()
-    {
-        if (GUILayout.Button("PrintList"))
-        {
-            UpdateBarrelDisplay();
-        }
-    }
-
     private void Start()
     {
         ContainerInventorySlotsTransform = FindFirstObjectByType<PlayerUIManager>().containerInventorySlots;

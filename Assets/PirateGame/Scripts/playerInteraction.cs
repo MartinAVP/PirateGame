@@ -39,14 +39,6 @@ public class playerInteraction : MonoBehaviour
 
     public Transform getCameraPos(){ return CameraLoc; }
 
-/*    private void OnGUI()
-    {
-        if (GUILayout.Button("Banana On Hand"))
-            handItem(ItemType.Banana);
-        if (GUILayout.Button("Cannon Ball On Hand"))
-            handItem(ItemType.CannonBall);
-    }*/
-
 
     public ItemType currentItemInHand;
     GameObject itemHeld = null;
@@ -155,9 +147,4 @@ public class playerInteraction : MonoBehaviour
         return null;
     }
 
-/*    private void OnGUI()
-    {
-        if (GUILayout.Button("Check Object"))
-            checkObject();
-    }*/
 }

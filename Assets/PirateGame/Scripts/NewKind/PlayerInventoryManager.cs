@@ -18,50 +18,6 @@ public class PlayerInventoryManager : MonoBehaviour
         playerInventory = new List<InventoryItem>();
     }
 
-/*    private void OnDisable()
-    {
-        if(playerInventory.Count != 0 )
-        {
-            playerInventory.Clear();
-        }
-    }*/
-
-/*    private void OnGUI()
-    {
-        if (GUILayout.Button("PrintList"))
-        {
-            playerContainerInv.RefreshInventory();
-        }
-        // Add Items
-        else if (GUILayout.Button("Add Cannon Ball Item"))
-        {
-            addItem(ItemType.CannonBall);
-        }
-        else if (GUILayout.Button("Add Banana Item"))
-        {
-            addItem(ItemType.Banana);
-        }
-        else if (GUILayout.Button("Add Plank Item"))
-        {
-            addItem(ItemType.Plank);
-        }
-
-        // Remove Items
-        else if (GUILayout.Button("Remove Cannon Ball Item"))
-        {
-            removeItem(ItemType.CannonBall);
-        }
-        else if (GUILayout.Button("Remove Banana Item"))
-        {
-            removeItem(ItemType.Banana);
-        }
-        else if (GUILayout.Button("Remove Plank Item"))
-        {
-            removeItem(ItemType.Plank);
-        }
-
-    }*/
-
     public void addItem(ItemType type)
     {
         bool foundItem = false;

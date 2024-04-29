@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ public class PlayerUIInventoryWheel : MonoBehaviour
 
     private void Start()
     {
-        print(GetComponent<PlayerUIManager>().playerWheelSlots.transform);
+        //print(GetComponent<PlayerUIManager>().playerWheelSlots.transform);
         PlayerInventorySlotsTransform = GetComponent<PlayerUIManager>().playerWheelSlots.transform;
 
         playerContainerSlots = new UIPlayerWheelSlot[GetComponent<PlayerUIManager>().playerWheelSlots.childCount];
@@ -54,6 +55,8 @@ public class PlayerUIInventoryWheel : MonoBehaviour
 
             j++;
         }
+
+        //CondenseAndDisplay();
     }
 
     public void RefreshInventory()
@@ -93,8 +96,86 @@ public class PlayerUIInventoryWheel : MonoBehaviour
         }
     }
 
-    private void Condense()
+/*    private void CondenseAndDisplay()
     {
+        List<T> foodItems = new List<T>();
+        List<InventoryItem> cannonBalls = new List<InventoryItem>();
+        List<InventoryItem> planks = new List<InventoryItem>();
+
+        ItemType typeAtIndex;
+
+        // Loop through the player Inventory
+        int i = 0;
+        foreach(InventoryItem indexItem in inventory.playerInventory)
+        {
+            typeAtIndex = inventory.playerInventory[i].type;
+
+            if(typeAtIndex == ItemType.Banana) 
+            {
+                foodItems.Add(indexItem);
+            }
+
+            if (typeAtIndex == ItemType.CannonBall)
+            {
+                cannonBalls.Add(indexItem);
+            }
+
+            if (typeAtIndex == ItemType.Plank)
+            {
+                planks.Add(indexItem);
+            }
+            i++;
+        }
+
+        // Display Cannon Balls
+        updateItemDisplays<T>(0, cannonBalls, cannonBalls[0].type, ItemType.CannonBall);
 
     }
+
+    private void updateItemDisplays<T>(int slotID, List<T> itemList, ItemType slotType, ItemType defaultType)
+    {
+        // Check if player has no cannonballs
+        if (itemList.Count != 0)
+        {
+            // Make the Image full Opacity
+            Color tempColor = playerContainerSlots[slotID].itemIcon.GetComponent<Image>().color;
+            tempColor.a = 1f;
+            playerContainerSlots[slotID].itemIcon.GetComponent<Image>().color = tempColor;
+
+            // Set the Sprite
+            playerContainerSlots[slotID].itemIcon.SetActive(true);
+            playerContainerSlots[slotID].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().FindItemTypeData(slotType).itemIcon;
+
+            // Set the number icon
+            playerContainerSlots[slotID].numberIcon.SetActive(true);
+            playerContainerSlots[slotID].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = inventory.playerInventory[slotID].quantity.ToString();
+
+            // Set the itemStored type in the UI Slot
+            playerContainerSlots[slotID].slot.GetComponent<Slot>().itemStored = slotType;
+        }
+        // No cannonballs in inventory
+        else
+        {
+            // Make the Image Half Opacity
+            Color tempColor = playerContainerSlots[slotID].itemIcon.GetComponent<Image>().color;
+            tempColor.a = .2f;
+            playerContainerSlots[slotID].itemIcon.GetComponent<Image>().color = tempColor;
+
+            // Set the Sprite
+            playerContainerSlots[slotID].itemIcon.SetActive(true);
+            playerContainerSlots[slotID].itemIcon.GetComponent<Image>().sprite = FindObjectOfType<GameAssets>().FindItemTypeData(ItemType.CannonBall).itemIcon;
+
+            // Set the number icon
+            playerContainerSlots[slotID].numberIcon.SetActive(true);
+            playerContainerSlots[slotID].numberIcon.GetComponentInChildren<TextMeshProUGUI>().text = 0.ToString();
+
+            // Make the Image Half Opacity
+            Color tempNumColor = playerContainerSlots[slotID].itemIcon.GetComponent<Image>().color;
+            tempNumColor.a = .2f;
+            playerContainerSlots[slotID].itemIcon.GetComponent<Image>().color = tempNumColor;
+
+            // Set the itemStored type in the UI Slot
+            playerContainerSlots[slotID].slot.GetComponent<Slot>().itemStored = defaultType;
+        }
+    }*/
 }
