@@ -10,7 +10,7 @@ public class PlayerUIManager : MonoBehaviour
 
     // Panels
     [HideInInspector] public Transform mainLayout;
-    public Transform playerWheel;
+    [HideInInspector] public Transform playerWheel;
     [HideInInspector] public Transform containerInventory;
 
     // Container Positions
@@ -18,7 +18,14 @@ public class PlayerUIManager : MonoBehaviour
     [HideInInspector] public Transform containerInventorySlots;
 
     // Player Wheel Positions
-    public Transform playerWheelSlots;
+    [HideInInspector] public Transform playerWheelSlots;
+
+    [HideInInspector]public UIContainerSlot[] containerSlots;
+
+    private void Awake()
+    {
+        containerSlots = new UIContainerSlot[16];
+    }
 
     private void OnEnable()
     {
