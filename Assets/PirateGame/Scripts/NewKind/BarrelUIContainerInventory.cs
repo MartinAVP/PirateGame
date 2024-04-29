@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -133,6 +134,13 @@ public class ContainerUIContainerInventory : MonoBehaviour
 
             // Set the itemStored type to none in the UI Slot
             containerSlots[j].slot.GetComponent<SlotContainer>().itemStored = ItemType.None;
+        }
+
+
+        // Make each selected Overlay false
+        for (int k = 0; k < containerSlots.Length; k++)
+        {
+            containerSlots[k].selected.SetActive(false);
         }
     }
 }
