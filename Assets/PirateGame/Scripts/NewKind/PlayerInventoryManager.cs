@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInventoryManager : MonoBehaviour
 {
@@ -10,12 +11,28 @@ public class PlayerInventoryManager : MonoBehaviour
 
     private PlayerUIContainerInventory playerContainerInv;
     private playerInteraction playerInt;
+    public PlayerQuestTracker quest;
+
+    public UnityEvent inventoryChange;
 
     private void Awake()
     {
+        quest = GetComponent<PlayerQuestTracker>();
         playerContainerInv = GetComponent<PlayerUIContainerInventory>();
         playerInt = GetComponent<playerInteraction>();
         playerInventory = new List<InventoryItem>();
+
+        
+    }
+
+    private void Start()
+    {
+        inventoryChange.AddListener(quest.checkInventory);
+    }
+
+    public List<InventoryItem> GetInventory()
+    {
+        return playerInventory;
     }
 
     public void addItem(ItemType type)
@@ -42,6 +59,8 @@ public class PlayerInventoryManager : MonoBehaviour
             newItem.type = type;
             playerInventory.Add(newItem);
         }
+
+        inventoryChange.Invoke();
     }
 
     public void removeItem(ItemType type)
@@ -66,6 +85,7 @@ public class PlayerInventoryManager : MonoBehaviour
                     }
                 }
 
+                inventoryChange.Invoke();
                 playerContainerInv.RefreshInventory();
                 //Debug.Log("The Banana is already instantiated in the inventory");
                 return;
