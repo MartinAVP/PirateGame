@@ -12,10 +12,33 @@ public class PlayerQuestTracker : MonoBehaviour
 
     private PlayerInventoryManager inventoryManager;
 
+    public void OnDisable()
+    {
+        startedQuests.Clear();
+        completedQuests.Clear();
+        //PlayerQuestTracker = null;
+    }
+
     private void Awake()
     {
         inventoryManager = GetComponent<PlayerInventoryManager>();
+
+        //availablequests = new List<Quest>();
+        completedQuests = new List<Quest>();
+        startedQuests = new List<Quest>();
     }
+
+/*    public int availableQuestNum;
+    public int completedQuestNum;
+    public int startedQuestsNum;
+
+    private void Update()
+    {
+        availableQuestNum = availablequests.Count;
+        completedQuestNum = completedQuests.Count;
+        startedQuestsNum = startedQuests.Count;
+    }*/
+
 
     private void Start()
     {
@@ -24,22 +47,24 @@ public class PlayerQuestTracker : MonoBehaviour
             Debug.LogWarning("Player has no quests assigned");
             return;
         }
-
-        int j = 0;
-        foreach (Quest quest in availablequests)
+        else
         {
-            quest.id = j;
-            quest.status = QuestStatus.notStarted;
-        }
+            int j = 0;
+            foreach (Quest quest in availablequests)
+            {
+                quest.id = j;
+                quest.status = QuestStatus.notStarted;
+            }
 
-        currentQuest = availablequests[0];
+            currentQuest = availablequests[0];
+        }
     }
 
     public void checkInventory()
     {
         List<InventoryItem> playerInventory = inventoryManager.GetInventory();
         //Debug.Log("Quest system is checking inventories");
-        GatherQuest gatherItems;
+        //GatherQuest gatherItems;
         // No Quests started
         if(startedQuests.Count != 0)
         {
@@ -78,6 +103,53 @@ public class PlayerQuestTracker : MonoBehaviour
         }
     }
 
+    public void checkEnteredZone(GameObject zone)
+    {
+        // Check if there is no quests on the List
+        if(startedQuests.Count != 0)
+        {
+            // Loop through all active quests
+            for (int i = 0; i < startedQuests.Count; i++)
+            {
+                // Check if the quest type is Entering an AreaQuest
+                if (startedQuests[i] is EnterAreaQuest enterArea)
+                {
+                    bool allAreasCompleted = true;
+                    // Loop through each area in the quest tasked
+                    foreach (var area in enterArea.areaList)
+                    {
+                        // Check if the zone is a Reachable Area
+                        if(zone.tag == "ReachArea")
+                        {
+                            print("Iteration");
+                            // Check if the Name of the Zone matches the Name of the Quest
+                            if(area.AreaName == zone.name)
+                            {
+                                print("The area has been reached: " + zone.name);
+                                area.SetReached(true);
+                                area.MarkAsReached();
+                                print("The area " + zone.name + " has been marked as " + area.AreaReached);
+                                // Check if the area Reached is False
+                                if (area.AreaReached == false)
+                                {
+                                    allAreasCompleted = false;
+                                }
+                            }
+                        }
+                    }
+
+
+                    // If all the areas have been completed, then complete the quest
+                    if (allAreasCompleted == true)
+                    {
+                        Debug.Log("All Areas have been reached: " + allAreasCompleted);
+                        CompleteQuest(startedQuests[i]);
+                    }
+                }
+            }
+        }
+    }
+
     public void CompleteQuest(Quest quest)
     {
         quest.status = QuestStatus.completed;
@@ -91,13 +163,19 @@ public class PlayerQuestTracker : MonoBehaviour
 
     }
 
-/*    private void OnGUI()
+    private void OnGUI()
     {
-        if(GUILayout.Button("Tomate"))
+        if(GUILayout.Button("Start Gathering Quest"))
         {
             startQuest(0);
         }
-    }*/
+
+        if (GUILayout.Button("Start LookAround"))
+        {
+            startQuest(0);
+        }
+
+    }
 
     public void startQuest(int id)
     {
