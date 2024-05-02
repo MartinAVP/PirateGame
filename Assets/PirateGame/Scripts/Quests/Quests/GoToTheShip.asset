@@ -9,15 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: GoToShip
-  m_EditorClassIdentifier: Assembly-CSharp::EnterAreaQuest
-  questTitle: GoToTheShip
+  m_Script: {fileID: 11500000, guid: df2c2fea5b1db4343a57c2616b1bf1ca, type: 3}
+  m_Name: Go to the Ship
+  m_EditorClassIdentifier: 
+  questTitle: Go to the Ship
   questDescription: Reach the ship
   id: 0
   status: 2
   areaList:
-  - AreaReached: 0
-    AreaName: Area[1]
-  - AreaReached: 0
-    AreaName: Area[2]
+  - areaReached: 1
+    areaName: Area[1]
+  - areaReached: 1
+    areaName: Area[2]
+  - areaReached: 1
+    areaName: Area[3]

@@ -1,23 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerQuestTracker : MonoBehaviour
 {
-    public Quest currentQuest;
-
     public List<Quest> availablequests;
-    public List<Quest> startedQuests;
-    public List<Quest> completedQuests;
+    private List<Quest> startedQuests;
+    private List<Quest> completedQuests;
 
     private PlayerInventoryManager inventoryManager;
 
-    public void OnDisable()
+/*    public void OnDisable()
     {
-        startedQuests.Clear();
-        completedQuests.Clear();
+        startedQuests = null;
+        completedQuests = null;
         //PlayerQuestTracker = null;
-    }
+    }*/
 
     private void Awake()
     {
@@ -28,17 +28,11 @@ public class PlayerQuestTracker : MonoBehaviour
         startedQuests = new List<Quest>();
     }
 
-/*    public int availableQuestNum;
-    public int completedQuestNum;
-    public int startedQuestsNum;
-
+    //public int area;
     private void Update()
     {
-        availableQuestNum = availablequests.Count;
-        completedQuestNum = completedQuests.Count;
-        startedQuestsNum = startedQuests.Count;
-    }*/
-
+        
+    }
 
     private void Start()
     {
@@ -54,9 +48,18 @@ public class PlayerQuestTracker : MonoBehaviour
             {
                 quest.id = j;
                 quest.status = QuestStatus.notStarted;
-            }
+                quest.name = quest.questTitle;
 
-            currentQuest = availablequests[0];
+                if (availablequests[j] is EnterAreaQuest enterArea)
+                {
+                    foreach(var area in enterArea.areaList)
+                    {
+                        area.areaReached = false;
+                    }
+                }
+
+                j++;
+            }
         }
     }
 
@@ -84,14 +87,14 @@ public class PlayerQuestTracker : MonoBehaviour
                             if (item.quantity >= gatherQuest.Quantity)
                             {
                                 // Player has enough items for completed quest
-                                Debug.Log("Enough items found! ( " + item.quantity + " / " + gatherQuest.Quantity + " )");
-                                Debug.Log("The quest has been completed");
+                                //Debug.Log("Enough items found! ( " + item.quantity + " / " + gatherQuest.Quantity + " )");
+                                //Debug.Log("The quest has been completed");
                                 CompleteQuest(startedQuests[i]);
                             }
                             else
                             {
                                 //Player does not have enough items to complete the quest.
-                                Debug.Log("Not enough items yet ( " + item.quantity + " / " + gatherQuest.Quantity + " )");
+                                //Debug.Log("Not enough items yet ( " + item.quantity + " / " + gatherQuest.Quantity + " )");
                             }
                             break;
                             // The player does not have any item type requiered by the quest
@@ -114,53 +117,50 @@ public class PlayerQuestTracker : MonoBehaviour
                 // Check if the quest type is Entering an AreaQuest
                 if (startedQuests[i] is EnterAreaQuest enterArea)
                 {
-                    bool allAreasCompleted = true;
-                    // Loop through each area in the quest tasked
-                    foreach (var area in enterArea.areaList)
+                    // Check if the zone is a Reachable Area
+                    if (zone.tag == "ReachArea")
                     {
-                        // Check if the zone is a Reachable Area
-                        if(zone.tag == "ReachArea")
+                        // Loop through each area in the quest tasked
+                        foreach (var area in enterArea.areaList)
                         {
-                            print("Iteration");
+
+                            //print("Iteration");
                             // Check if the Name of the Zone matches the Name of the Quest
-                            if(area.AreaName == zone.name)
+                            if (area.areaName == zone.name)
                             {
-                                print("The area has been reached: " + zone.name);
-                                area.SetReached(true);
-                                area.MarkAsReached();
-                                print("The area " + zone.name + " has been marked as " + area.AreaReached);
-                                // Check if the area Reached is False
-                                if (area.AreaReached == false)
-                                {
-                                    allAreasCompleted = false;
-                                }
+                                //print("The area has been reached: " + zone.name);
+                                area.areaReached = true;
+                                //print("The area " + area.areaName + " has been marked as " + area.areaReached);
                             }
                         }
-                    }
 
+                        // Make a new List
+                        List<bool> areasReached = new List<bool>();
+                        // Copy the values of the reachable into a new Local List
+                        foreach(var area in enterArea.areaList)
+                        {
+                            areasReached.Add(area.areaReached);
+                        }
 
-                    // If all the areas have been completed, then complete the quest
-                    if (allAreasCompleted == true)
-                    {
-                        Debug.Log("All Areas have been reached: " + allAreasCompleted);
-                        CompleteQuest(startedQuests[i]);
+                        // Check if all the values are true
+                        bool allTrue = areasReached.All(b => b);
+
+                        // If all the areas have been completed, then complete the quest
+                        if (allTrue == true)
+                        {
+                            //Debug.Log("All Areas have been reached: " + allTrue);
+                            CompleteQuest(startedQuests[i]);
+                        }
                     }
                 }
             }
         }
     }
-
     public void CompleteQuest(Quest quest)
     {
         quest.status = QuestStatus.completed;
         completedQuests.Add(quest);
         startedQuests.Remove(quest);
-
-    }
-
-    public void updateGatheringQuest(Quest quest, int quantity)
-    {
-
     }
 
     private void OnGUI()

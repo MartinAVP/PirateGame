@@ -12,18 +12,5 @@ public class Quest : ScriptableObject
     // Identifier
     [HideInInspector]public int id;
 
-
-    // Technical Values
-/*    public bool questInProgress;
-    public bool questNotStarted;
-    public bool questCompleted;*/
-
     public QuestStatus status;
 }
-
-/*public enum QuestType
-{
-    GatherItems,
-    EnterZone,
-    ShootTarget
-}*/

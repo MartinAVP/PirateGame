@@ -11,7 +11,7 @@ public class PlayerInventoryManager : MonoBehaviour
 
     private PlayerUIContainerInventory playerContainerInv;
     private playerInteraction playerInt;
-    public PlayerQuestTracker quest;
+    private PlayerQuestTracker quest;
 
     public UnityEvent inventoryChange;
 

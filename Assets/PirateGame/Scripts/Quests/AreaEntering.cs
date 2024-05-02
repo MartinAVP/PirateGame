@@ -16,7 +16,7 @@ public class AreaEntering : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Player Entered Area");
+        //Debug.Log("Player Entered Area");
         questTracker.checkEnteredZone(this.gameObject);
         //enteredArea.Invoke();
     }
