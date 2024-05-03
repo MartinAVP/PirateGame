@@ -435,7 +435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72be3cd5e8a5b3c4a9a9625a792ff8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quest: {fileID: 0}
   inventoryChange:
     m_PersistentCalls:
       m_Calls: []
@@ -495,11 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50459dcf568ebeb4db9de71a6576c181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentQuest: {fileID: 0}
-  availablequests:
-  - {fileID: 11400000, guid: acb38d601075447409df0bb4028446b0, type: 2}
-  startedQuests: []
-  completedQuests: []
+  availablequests: []
 --- !u!1 &5295619009833028186
 GameObject:
   m_ObjectHideFlags: 0
