@@ -141,7 +141,7 @@ Material:
     - _Deep_Color: {r: 0.08940016, g: 0.30262485, b: 0.38679248, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Foam_Color: {r: 1, g: 0, b: 0, a: 0}
-    - _Horizon_Color: {r: 1, g: 0.5200415, b: 0.37254906, a: 0}
+    - _Horizon_Color: {r: 0.75800997, g: 0.94561607, b: 0.9622642, a: 0}
     - _Shallow_Color: {r: 0.63897294, g: 0.7830189, b: 0.7830189, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Surface_Foam_Color: {r: 1, g: 1, b: 1, a: 0}
