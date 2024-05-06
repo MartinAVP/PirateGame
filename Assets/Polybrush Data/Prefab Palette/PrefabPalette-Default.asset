@@ -17,11 +17,11 @@ MonoBehaviour:
       type: 3}
     settings:
       m_Strength: 53.323193
-      m_RotationRangeMin: {x: 0, y: 12.947357, z: 0}
-      m_RotationRangeMax: {x: 0, y: 72.73074, z: 0}
+      m_RotationRangeMin: {x: 0, y: 0, z: 0}
+      m_RotationRangeMax: {x: 0, y: 352.27124, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 0.6282723, y: 1.4136126}
+      m_UniformScale: {x: 0.05355966, y: 0.83889985}
       m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 1
@@ -33,12 +33,12 @@ MonoBehaviour:
   - gameObject: {fileID: 4039276496485187753, guid: 002abefa17ac0354e8e2c9233ac66283,
       type: 3}
     settings:
-      m_Strength: 57.087452
-      m_RotationRangeMin: {x: 0, y: 12.947357, z: 0}
-      m_RotationRangeMax: {x: 0, y: 72.73074, z: 0}
+      m_Strength: 53.323193
+      m_RotationRangeMin: {x: 0, y: 0, z: 0}
+      m_RotationRangeMax: {x: 0, y: 352.27124, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 5.867198, y: 10}
+      m_UniformScale: {x: 0.05355966, y: 0.83889985}
       m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 1
@@ -67,18 +67,18 @@ MonoBehaviour:
   - gameObject: {fileID: 614442375304769194, guid: 4a423488709ee1a42af3a01001f2dc13,
       type: 3}
     settings:
-      m_Strength: 1
-      m_RotationRangeMin: {x: 0, y: 5.4339623, z: 0}
-      m_RotationRangeMax: {x: 0, y: 358.6415, z: 0}
+      m_Strength: 53.323193
+      m_RotationRangeMin: {x: 0, y: 0, z: 0}
+      m_RotationRangeMax: {x: 0, y: 352.27124, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
-      m_ScaleRangeMax: {x: 1, y: 2.5094337, z: 1}
-      m_UniformScale: {x: 0.8988764, y: 1.0674158}
-      m_UniformBool: 0
+      m_ScaleRangeMax: {x: 1, y: 1, z: 1}
+      m_UniformScale: {x: 0.05355966, y: 0.83889985}
+      m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 1
       m_ZRotationBool: 0
       m_XScaleBool: 0
-      m_YScaleBool: 1
+      m_YScaleBool: 0
       m_ZScaleBool: 0
     name: tall grass lod
   - gameObject: {fileID: 2322155063140255241, guid: b6a1520edeefc8b409d1f218ec1bf7a4,
