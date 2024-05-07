@@ -81,5 +81,7 @@ public enum InteractType
 {
     None,
     Cannon,
-    Barrel
+    Barrel,
+    CannonCrate,
+    FoodCrate
 }

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questTitle: Go to the Ship
   questDescription: Reach the ship
-  id: 0
-  status: 2
+  id: 1
+  status: 0
   areaList:
-  - areaReached: 1
+  - areaReached: 0
     areaName: Area[1]
-  - areaReached: 1
+  - areaReached: 0
     areaName: Area[2]
-  - areaReached: 1
+  - areaReached: 0
     areaName: Area[3]

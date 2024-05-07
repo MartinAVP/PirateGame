@@ -112,42 +112,6 @@ public class PlayerView : MonoBehaviour
         }
 
         messageDisplayed = true;
-        /*        if(item.tag == "pickUpItem")
-                {
-                    if(item.GetComponent<PickUpItem>().itemType == ItemType.CannonBall)
-                    {
-                        //currentMessage = Instantiate(tooltip.GetItemTooltip(ItemType.CannonBall), toolTipLoc.transform.position, Quaternion.identity);
-                        currentMessage = Instantiate(gameAssets.FindItemTypeData(ItemType.CannonBall).toolTip, toolTipLoc.transform.position, Quaternion.identity);
-                    }
-                    else if (item.GetComponent<PickUpItem>().itemType == ItemType.Banana)
-                    {
-                        //currentMessage = Instantiate(tooltip.GetItemTooltip(ItemType.Banana), toolTipLoc.transform.position, Quaternion.identity);
-                        currentMessage = Instantiate(gameAssets.FindItemTypeData(ItemType.Banana).toolTip, toolTipLoc.transform.position, Quaternion.identity);
-                    }
-                    else if (item.GetComponent<PickUpItem>().itemType == ItemType.Plank)
-                    {
-                        //currentMessage = Instantiate(tooltip.GetItemTooltip(ItemType.Plank), toolTipLoc.transform.position, Quaternion.identity);
-                        currentMessage = Instantiate(gameAssets.FindItemTypeData(ItemType.Plank).toolTip, toolTipLoc.transform.position, Quaternion.identity);
-                    }
-                    messageDisplayed = true;
-                    //currentMessage = item.gameObject;
-                }
-                else if(item.tag == "Interactable")
-                {
-                    if (item.GetComponent<InteractableItem>().InteractType == InteractType.Cannon)
-                    {
-                        //Debug.Log("Cannon");
-                        //currentMessage = Instantiate(tooltip.GetInteractTooltip(InteractType.Cannon), toolTipLoc.transform.position, Quaternion.identity);
-                        currentMessage = Instantiate(gameAssets.FindInteractableTypeData(InteractType.Cannon).toolTip, toolTipLoc.transform.position, Quaternion.identity);
-                    }
-                    else if (item.GetComponent<InteractableItem>().InteractType == InteractType.Barrel)
-                    {
-                        //Debug.Log("Cannon");
-                        //currentMessage = Instantiate(tooltip.GetInteractTooltip(InteractType.Barrel), toolTipLoc.transform.position, Quaternion.identity);
-                        currentMessage = Instantiate(gameAssets.FindInteractableTypeData(InteractType.Cannon).toolTip, toolTipLoc.transform.position, Quaternion.identity);
-                    }
-                    messageDisplayed = true;
-                }*/
     }
 
     private void spawnPickupToolTip(ItemType type)
