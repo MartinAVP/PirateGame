@@ -12,6 +12,7 @@ public class PlayerUIManager : MonoBehaviour
     [HideInInspector] public Transform mainLayout;
     [HideInInspector] public Transform playerWheel;
     [HideInInspector] public Transform containerInventory;
+    [HideInInspector] public Transform quests;
 
     // Container Positions
     [HideInInspector] public Transform containerPlayerInventorySlots;
@@ -19,6 +20,13 @@ public class PlayerUIManager : MonoBehaviour
 
     // Player Wheel Positions
     [HideInInspector] public Transform playerWheelSlots;
+
+    // Quests
+    public Transform questsActive;
+    [HideInInspector] public Transform questsCompleted;
+
+    [HideInInspector] public Transform questsActiveContent;
+    [HideInInspector] public Transform questsCompletedContent;
 
     [HideInInspector]public UIContainerSlot[] containerSlots;
 
@@ -38,6 +46,8 @@ public class PlayerUIManager : MonoBehaviour
                 playerWheel = canvasChild;
             else if(canvasChild.name == "PlayerContainerInventory")
                 containerInventory = canvasChild;
+            else if (canvasChild.name == "PlayerQuestLog")
+                quests = canvasChild;
         }
 
         // Find the Container Positions
@@ -56,6 +66,23 @@ public class PlayerUIManager : MonoBehaviour
                 playerWheelSlots = playerWheelChild;
         }
 
+        // Find the Quests Positions
+        foreach (Transform questsChild in quests)
+        {
+            if (questsChild.name == "ActiveQuests")
+            {
+                questsActive = questsChild;
+
+                questsActiveContent = questsActive.GetChild(0).GetChild(0);
+            }
+
+            if (questsChild.name == "CompletedQuest")
+            {
+                questsCompleted = questsChild;
+
+                questsCompletedContent = questsActive.GetChild(0).GetChild(0);
+            }
+        }
     }
 
     // Inventory Wheel Public Functions

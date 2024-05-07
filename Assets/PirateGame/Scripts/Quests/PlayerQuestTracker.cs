@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 public class PlayerQuestTracker : MonoBehaviour
 {
@@ -11,31 +12,24 @@ public class PlayerQuestTracker : MonoBehaviour
     private List<Quest> completedQuests;
 
     private PlayerInventoryManager inventoryManager;
+    private PlayerUIQuestManager playerUIQuestManager;
 
-/*    public void OnDisable()
-    {
-        startedQuests = null;
-        completedQuests = null;
-        //PlayerQuestTracker = null;
-    }*/
+    public UnityEvent newQuest;
 
     private void Awake()
     {
         inventoryManager = GetComponent<PlayerInventoryManager>();
+        playerUIQuestManager = GetComponent<PlayerUIQuestManager>();
 
         //availablequests = new List<Quest>();
         completedQuests = new List<Quest>();
         startedQuests = new List<Quest>();
-    }
 
-    //public int area;
-    private void Update()
-    {
-        
     }
 
     private void Start()
     {
+        newQuest.AddListener(this.transform.GetComponent<PlayerUIQuestManager>().updateUI);
         if(availablequests.Count == 0)
         {
             Debug.LogWarning("Player has no quests assigned");
@@ -181,6 +175,7 @@ public class PlayerQuestTracker : MonoBehaviour
     {
         availablequests[0].status = QuestStatus.inProgress;
         startedQuests.Add(availablequests[id]);
+        newQuest.Invoke();
         checkInventory();
     }
 }
