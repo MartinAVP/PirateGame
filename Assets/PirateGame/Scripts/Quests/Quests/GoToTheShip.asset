@@ -15,7 +15,7 @@ MonoBehaviour:
   questTitle: Go to the Ship
   questDescription: Reach the ship
   id: 1
-  status: 1
+  status: 0
   areaList:
   - areaReached: 0
     areaName: Area[1]
