@@ -15,6 +15,8 @@ public class MainMenuButtonActions : MonoBehaviour
     public GameObject credits;
     private Animator creditsAnimator;
 
+    public AudioSource menuMusic;
+    private bool fadeAudio = false;
     private void Awake()
     {
         blackScreenAnimator = blackScreen.GetComponent<Animator>();
@@ -22,9 +24,18 @@ public class MainMenuButtonActions : MonoBehaviour
         creditsAnimator = credits.GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (fadeAudio)
+        {
+            menuMusic.volume = Mathf.Lerp(menuMusic.volume, 0f, 0.6f * Time.deltaTime);
+        }
+    }
+
     public void StartGame()
     {
         StartFade();
+        fadeAudio = true;
         StartCoroutine(startGameDelay());
     }
 
@@ -38,7 +49,7 @@ public class MainMenuButtonActions : MonoBehaviour
 
     private IEnumerator startGameDelay()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(6f);
         SceneManager.LoadScene(1);
     }
 
