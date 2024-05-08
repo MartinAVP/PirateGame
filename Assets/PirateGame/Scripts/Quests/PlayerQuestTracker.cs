@@ -16,6 +16,18 @@ public class PlayerQuestTracker : MonoBehaviour
 
     public UnityEvent newQuest;
 
+    private void OnEnable()
+    {
+        GameEventBus.Subscribe(GameEventsType.SHIPSUNK, addShipsSunk);
+    }
+    private void OnDisable()
+    {
+        GameEventBus.Unsubscribe(GameEventsType.SHIPSUNK, addShipsSunk);
+    }
+
+    // Global Quests Variable
+    public int shipsSunk;
+
     private void Awake()
     {
         inventoryManager = GetComponent<PlayerInventoryManager>();
@@ -215,6 +227,43 @@ public class PlayerQuestTracker : MonoBehaviour
             GetComponent<PlayerUIQuestManager>().updateUI();
         }
     }
+
+    private void addShipsSunk()
+    {
+        shipsSunk++;
+        checkShipsSunk();
+    }
+
+    public void checkShipsSunk()
+    {
+        if (startedQuests.Count != 0)
+        {
+            // Loop through all active quests
+            for (int i = 0; i < startedQuests.Count; i++)
+            {
+                // Check if the quest is a Gather quest
+                if (startedQuests[i] is SinkShips sinkShips)
+                {
+                    // Check the quantity of the item in the inventory and check if its greater than or equal to the requierements.
+                    if (shipsSunk >= sinkShips.shipsToSink)
+                    {
+                        // Player has enough items for completed quest
+                        CompleteQuest(startedQuests[i]);
+                        shipsSunk -= sinkShips.shipsToSink;
+                    }
+                    else
+                    {
+                        //Player does not have enough items to complete the quest.
+                    }
+                    break;
+                    // The player does not have any item type requiered by the quest
+                    // The quest is not a gather quest
+                }
+            }
+            GetComponent<PlayerUIQuestManager>().updateUI();
+        }
+    }
+
     public void CompleteQuest(Quest quest)
     {
         quest.status = QuestStatus.completed;
@@ -230,6 +279,7 @@ public class PlayerQuestTracker : MonoBehaviour
         {
             startQuest(0);
             startQuest(1);
+            startQuest(2);
         }
     }
 

@@ -34,10 +34,16 @@ public class PlayerUIQuestManager : MonoBehaviour
                 active.progress.GetComponent<TextMeshProUGUI>().text = quests.inventoryUpdate(active.quest).ToString() + " / " + gatherQuest.Quantity.ToString();
             }
 
-            if(active.quest is EnterAreaQuest enterArea)
+            if (active.quest is EnterAreaQuest enterArea)
             {
                 active.progress.GetComponent<TextMeshProUGUI>().text = quests.checkAreasReached(active.quest).ToString() + " / " + quests.getTotalAreasToReach(active.quest).ToString();
             }
+
+            if (active.quest is SinkShips shipsSinking)
+            {
+                active.progress.GetComponent<TextMeshProUGUI>().text = quests.shipsSunk + " / " + shipsSinking.shipsToSink.ToString();
+            }
+
         }
     }
 

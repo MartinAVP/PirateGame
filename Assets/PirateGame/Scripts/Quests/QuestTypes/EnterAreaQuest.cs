@@ -18,16 +18,10 @@ public class EnterAreaQuest : Quest
     [System.Serializable]
     public class AreaInformation
     {
-        public bool areaReached; //{ get; internal set; }
-                                    //public bool AreaReached { get; internal set; }
+        public bool areaReached;
 
         [Tooltip("The area name must match the gameObject name in unity")]
         public string areaName;
-
-        /*        public void SetReached(bool reached)
-                {
-                    AreaReached = reached;
-                }*/
 
         public void MarkAsReached()
         {

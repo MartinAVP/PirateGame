@@ -12,6 +12,7 @@ TagManager:
   - ExistOverlay
   - Ground
   - ReachArea
+  - CannonBall
   layers:
   - Default
   - TransparentFX
