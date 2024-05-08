@@ -57,6 +57,67 @@ public class PlayerQuestTracker : MonoBehaviour
         }
     }
 
+    // UI Updater Methods
+    #region UI Updater Methods
+    public int inventoryUpdate(Quest quest)
+    {
+        List<InventoryItem> playerInventory = inventoryManager.GetInventory();
+
+        if (quest is GatherQuest gatherQuest)
+        {
+            // Loop player inventory
+            foreach (InventoryItem item in playerInventory)
+            {
+                // Check if the item type in the inventory is the same as the item type requiered in the quest
+                if (item.type == gatherQuest.itemType)
+                {
+                    // Check the quantity of the item in the inventory and check if its greater than or equal to the requierements.
+                    return item.quantity;
+                }
+            }
+            // The quest is not a gather quest
+        }
+
+        return 0;
+    }
+
+    public int checkAreasReached(Quest quest)
+    {
+        int areasComplete = 0;
+        if(quest is EnterAreaQuest enterArea)
+        {
+            // Make a new List
+            List<bool> areasReached = new List<bool>();
+            // Copy the values of the reachable into a new Local List
+            foreach (var area in enterArea.areaList)
+            {
+                areasReached.Add(area.areaReached);
+            }
+
+            for (int i = 0; i < areasReached.Count; i++)
+            {
+                if (areasReached[i] == true)
+                    areasComplete++;
+            }
+        }
+
+        return areasComplete;
+    }
+
+    public int getTotalAreasToReach(Quest quest)
+    {
+        int totalAreasToReach = 0;
+        if (quest is EnterAreaQuest enterArea)
+        {
+            foreach (var area in enterArea.areaList)
+            {
+                totalAreasToReach++;
+            }
+        }
+        return totalAreasToReach;
+    }
+    #endregion
+
     public void checkInventory()
     {
         List<InventoryItem> playerInventory = inventoryManager.GetInventory();
@@ -94,7 +155,8 @@ public class PlayerQuestTracker : MonoBehaviour
                             // The player does not have any item type requiered by the quest
                         }
                     }
-                // The quest is not a gather quest
+                    // The quest is not a gather quest
+                    GetComponent<PlayerUIQuestManager>().updateUI();
                 }
             }
         }
@@ -145,9 +207,12 @@ public class PlayerQuestTracker : MonoBehaviour
                             //Debug.Log("All Areas have been reached: " + allTrue);
                             CompleteQuest(startedQuests[i]);
                         }
+
+
                     }
                 }
             }
+            GetComponent<PlayerUIQuestManager>().updateUI();
         }
     }
     public void CompleteQuest(Quest quest)
@@ -155,6 +220,8 @@ public class PlayerQuestTracker : MonoBehaviour
         quest.status = QuestStatus.completed;
         completedQuests.Add(quest);
         startedQuests.Remove(quest);
+
+        GetComponent<PlayerUIQuestManager>().completeQuest(quest);
     }
 
     private void OnGUI()
@@ -162,20 +229,16 @@ public class PlayerQuestTracker : MonoBehaviour
         if(GUILayout.Button("Start Gathering Quest"))
         {
             startQuest(0);
+            startQuest(1);
         }
-
-        if (GUILayout.Button("Start LookAround"))
-        {
-            startQuest(0);
-        }
-
     }
 
     public void startQuest(int id)
     {
-        availablequests[0].status = QuestStatus.inProgress;
+        availablequests[id].status = QuestStatus.inProgress;
         startedQuests.Add(availablequests[id]);
-        newQuest.Invoke();
+        GetComponent<PlayerUIQuestManager>().newQuest(availablequests[id]);
+        //newQuest.Invoke();
         checkInventory();
     }
 }

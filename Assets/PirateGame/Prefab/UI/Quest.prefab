@@ -469,7 +469,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 781.5091, y: 233.34273, z: 0.54756165, w: -198.92346}
+  m_margin: {x: 693.77203, y: 233.34273, z: 0.54756165, w: -198.92346}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -486,6 +486,7 @@ GameObject:
   - component: {fileID: 1269394890697283253}
   - component: {fileID: 1774250179542613961}
   - component: {fileID: 3562935880767881067}
+  - component: {fileID: 5728388044102966823}
   m_Layer: 5
   m_Name: Quest
   m_TagString: Untagged
@@ -513,8 +514,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 215.9912, y: 88.3561}
+  m_AnchoredPosition: {x: 7.1914062, y: 0}
+  m_SizeDelta: {x: 230, y: 88.3561}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1774250179542613961
 CanvasRenderer:
@@ -551,3 +552,16 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &5728388044102966823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192978315358350836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae608734fab3cc409c7d10718614910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quest: {fileID: 0}

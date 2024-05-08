@@ -23,6 +23,7 @@ public class playerInteraction : MonoBehaviour
 
     private bool hasItemInHand = false;
     [HideInInspector] public bool canOpenInventoryWheel = true;
+    [HideInInspector] public bool canOpenQuestLog = true;
 
     private bool usingCannon;
     private void Start()
@@ -114,6 +115,29 @@ public class playerInteraction : MonoBehaviour
                 controller.updateMouse = true;
                 //ui.closeInventory();
                 playerUI.closeInventoryWheel();
+            }
+        }
+    }
+
+    public void OpenQuestMenu(InputAction.CallbackContext context)
+    {
+        if (canOpenQuestLog)
+        {
+            if (context.performed)
+            {
+                controller.updateMouse = false;
+                playerUI.openQuestLog();
+
+                // Prevent Inventory Wheel
+                canOpenInventoryWheel = false;
+            }
+            else if (context.canceled)
+            {
+                controller.updateMouse = true;
+                playerUI.closeQuestLog();
+                
+                // Enable Inventory Wheel
+                canOpenInventoryWheel= true;
             }
         }
     }

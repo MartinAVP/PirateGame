@@ -26,7 +26,7 @@ public class PlayerUIManager : MonoBehaviour
     [HideInInspector] public Transform questsCompleted;
 
     [HideInInspector] public Transform questsActiveContent;
-    [HideInInspector] public Transform questsCompletedContent;
+    public Transform questsCompletedContent;
 
     [HideInInspector]public UIContainerSlot[] containerSlots;
 
@@ -80,7 +80,7 @@ public class PlayerUIManager : MonoBehaviour
             {
                 questsCompleted = questsChild;
 
-                questsCompletedContent = questsActive.GetChild(0).GetChild(0);
+                questsCompletedContent = questsCompleted.GetChild(0).GetChild(0);
             }
         }
     }
@@ -95,6 +95,18 @@ public class PlayerUIManager : MonoBehaviour
     public void closeInventoryWheel()
     {
         playerWheel.gameObject.SetActive(false);
+        DisableCursor();
+    }
+
+    public void openQuestLog()
+    {
+        quests.gameObject.SetActive(true);
+        EnableCursor();
+    }
+
+    public void closeQuestLog()
+    {
+        quests.gameObject.SetActive(false);
         DisableCursor();
     }
 
