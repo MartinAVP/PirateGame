@@ -13,6 +13,7 @@ public class PlayerQuestTracker : MonoBehaviour
 
     private PlayerInventoryManager inventoryManager;
     private PlayerUIQuestManager playerUIQuestManager;
+    private PlayerAnnouncementManager playerAnnouncementManager;
 
     public UnityEvent newQuest;
 
@@ -32,6 +33,7 @@ public class PlayerQuestTracker : MonoBehaviour
     {
         inventoryManager = GetComponent<PlayerInventoryManager>();
         playerUIQuestManager = GetComponent<PlayerUIQuestManager>();
+        playerAnnouncementManager = GetComponent<PlayerAnnouncementManager>();
 
         //availablequests = new List<Quest>();
         completedQuests = new List<Quest>();
@@ -271,6 +273,7 @@ public class PlayerQuestTracker : MonoBehaviour
         startedQuests.Remove(quest);
 
         GetComponent<PlayerUIQuestManager>().completeQuest(quest);
+        playerAnnouncementManager.addAnnouncementQueued(quest.questTitle, "Completed", PlayerAnnouncementManager.questBannerType.MerchantAlliance, quest);
     }
 
     private void OnGUI()
@@ -290,6 +293,8 @@ public class PlayerQuestTracker : MonoBehaviour
         GetComponent<PlayerUIQuestManager>().newQuest(availablequests[id]);
         //newQuest.Invoke();
         checkInventory();
+
+        playerAnnouncementManager.addAnnouncementQueued(availablequests[id].questTitle, availablequests[id].questDescription, PlayerAnnouncementManager.questBannerType.MerchantAlliance, availablequests[id]);
     }
 }
 

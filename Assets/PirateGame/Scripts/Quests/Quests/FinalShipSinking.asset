@@ -15,7 +15,7 @@ MonoBehaviour:
   questTitle: Sink Ships
   questDescription: Sink 3 Ships
   id: 2
-  status: 0
+  status: 1
   shipsToSink: 3
   shipsSunk: 0
   shipTag: enemyShip

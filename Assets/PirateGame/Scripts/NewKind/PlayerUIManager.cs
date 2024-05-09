@@ -13,6 +13,7 @@ public class PlayerUIManager : MonoBehaviour
     [HideInInspector] public Transform playerWheel;
     [HideInInspector] public Transform containerInventory;
     [HideInInspector] public Transform quests;
+    [HideInInspector] public Transform announcements;
 
     // Container Positions
     [HideInInspector] public Transform containerPlayerInventorySlots;
@@ -22,13 +23,20 @@ public class PlayerUIManager : MonoBehaviour
     [HideInInspector] public Transform playerWheelSlots;
 
     // Quests
-    public Transform questsActive;
+    [HideInInspector] public Transform questsActive;
     [HideInInspector] public Transform questsCompleted;
 
     [HideInInspector] public Transform questsActiveContent;
-    public Transform questsCompletedContent;
+    [HideInInspector] public Transform questsCompletedContent;
 
     [HideInInspector]public UIContainerSlot[] containerSlots;
+
+    // Announcements
+    [HideInInspector] public Transform announcementsTopBar;
+    [HideInInspector] public Transform announcementsBottomBar;
+
+    [HideInInspector] public Transform announcementTopText;
+    [HideInInspector] public Transform announcementBottomText;
 
     private void Awake()
     {
@@ -48,6 +56,8 @@ public class PlayerUIManager : MonoBehaviour
                 containerInventory = canvasChild;
             else if (canvasChild.name == "PlayerQuestLog")
                 quests = canvasChild;
+            else if (canvasChild.name == "Announcement")
+                announcements = canvasChild;
         }
 
         // Find the Container Positions
@@ -81,6 +91,22 @@ public class PlayerUIManager : MonoBehaviour
                 questsCompleted = questsChild;
 
                 questsCompletedContent = questsCompleted.GetChild(0).GetChild(0);
+            }
+        }
+
+        // Find Announcement Positions
+        foreach(Transform announcements in announcements)
+        {
+            if(announcements.name == "TopPart")
+            {
+                announcementsTopBar = announcements.GetChild(0);
+                announcementTopText = announcements.GetChild(0).GetChild(0);
+            }
+
+            if (announcements.name == "BottomPart")
+            {
+                announcementsBottomBar = announcements.GetChild(0);
+                announcementBottomText = announcements.GetChild(0).GetChild(0);
             }
         }
     }

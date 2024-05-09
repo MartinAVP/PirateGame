@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 2777924852563202688}
   - component: {fileID: 3467692820877515566}
   - component: {fileID: 7438301157625699684}
+  - component: {fileID: 1947304283519575646}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -485,6 +486,7 @@ MonoBehaviour:
   playerWheel: {fileID: 0}
   containerInventory: {fileID: 0}
   quests: {fileID: 0}
+  announcements: {fileID: 0}
   containerPlayerInventorySlots: {fileID: 0}
   containerInventorySlots: {fileID: 0}
   playerWheelSlots: {fileID: 0}
@@ -492,6 +494,10 @@ MonoBehaviour:
   questsCompleted: {fileID: 0}
   questsActiveContent: {fileID: 0}
   questsCompletedContent: {fileID: 0}
+  announcementsTopBar: {fileID: 0}
+  announcementsBottomBar: {fileID: 0}
+  announcementTopText: {fileID: 0}
+  announcementBottomText: {fileID: 0}
 --- !u!114 &2777924852563202688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,9 +526,11 @@ MonoBehaviour:
   availablequests:
   - {fileID: 11400000, guid: 8d8800fef8975d743a63e5a1e79b1d9f, type: 2}
   - {fileID: 11400000, guid: 8a9966189ce10794cbd0d591bc17be05, type: 2}
+  - {fileID: 11400000, guid: bb1e94336f897324b8b7f70c10b3dbf3, type: 2}
   newQuest:
     m_PersistentCalls:
       m_Calls: []
+  shipsSunk: 0
 --- !u!114 &7438301157625699684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,6 +547,24 @@ MonoBehaviour:
   completedQuests: []
   questLogPrefab: {fileID: 8192978315358350836, guid: de6b78063d3a2f34eb2249c9260d1485,
     type: 3}
+--- !u!114 &1947304283519575646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4954354913005503878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaab87ae8f750d045bc0d250fd45df7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 0}
+  quests: {fileID: 0}
+  announcementsQueued:
+  - topText: 
+    bottomText: 
+    audioSource: {fileID: 0}
 --- !u!1 &5295619009833028186
 GameObject:
   m_ObjectHideFlags: 0
