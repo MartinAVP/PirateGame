@@ -276,7 +276,7 @@ public class PlayerQuestTracker : MonoBehaviour
         playerAnnouncementManager.addAnnouncementQueued(quest.questTitle, "Completed", PlayerAnnouncementManager.questBannerType.MerchantAlliance, quest);
     }
 
-    private void OnGUI()
+/*    private void OnGUI()
     {
         if(GUILayout.Button("Start Gathering Quest"))
         {
@@ -284,7 +284,7 @@ public class PlayerQuestTracker : MonoBehaviour
             startQuest(1);
             startQuest(2);
         }
-    }
+    }*/
 
     public void startQuest(int id)
     {
