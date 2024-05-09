@@ -74,6 +74,7 @@ public enum ItemType
     None,
     CannonBall,
     Banana,
+    Quest,
     Plank
 }
 

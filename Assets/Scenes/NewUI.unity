@@ -2930,6 +2930,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipHealth: 100
+  fireParticleEffect: {fileID: 0}
+  shipFireLoc1: {fileID: 0}
+  sunkShipPrefab: {fileID: 0}
 --- !u!4 &1260648340
 Transform:
   m_ObjectHideFlags: 0
@@ -3983,6 +3986,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipHealth: 100
+  fireParticleEffect: {fileID: 0}
+  shipFireLoc1: {fileID: 0}
+  sunkShipPrefab: {fileID: 0}
 --- !u!4 &1788080687
 Transform:
   m_ObjectHideFlags: 0
@@ -5006,6 +5012,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipHealth: 100
+  fireParticleEffect: {fileID: 0}
+  shipFireLoc1: {fileID: 0}
+  sunkShipPrefab: {fileID: 0}
 --- !u!4 &2093345068
 Transform:
   m_ObjectHideFlags: 0
@@ -5338,6 +5347,78 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dd4611f5d42efb4a88e7cfb320df157, type: 3}
+--- !u!1001 &4553312588570846836
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2095369112219622387, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_Name
+      value: ZoneToReach
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191707741484666236, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1589586013175318393, guid: 4b2b24b53f4bf8645982c66a6131fa99,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 4b2b24b53f4bf8645982c66a6131fa99, type: 3}
 --- !u!1001 &6733040099565483184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5624,6 +5705,7 @@ SceneRoots:
   - {fileID: 2688858273397971394}
   - {fileID: 774658349}
   - {fileID: 8111452878040072747}
+  - {fileID: 4553312588570846836}
   - {fileID: 1946443013}
   - {fileID: 855220429}
   - {fileID: 1774950462}

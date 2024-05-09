@@ -124,6 +124,12 @@ public class PlayerInventoryManager : MonoBehaviour
         //print(playerInt.checkObject().tag);
         if (playerInt.checkObject().tag == "pickUpItem")
         {
+            if(playerInt.checkObject().GetComponent<PickUpItem>().itemType == ItemType.Quest)
+            {
+                quest.startQuest(playerInt.checkObject().GetComponent<QuestHolder>().questID);
+                Destroy(playerInt.checkObject().gameObject);
+                return;
+            }
             addItem(playerInt.checkObject().GetComponent<PickUpItem>().itemType);
             playerContainerInv.RefreshInventory();
             Destroy(playerInt.checkObject().gameObject);
