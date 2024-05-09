@@ -66,10 +66,9 @@ MonoBehaviour:
       type: 3}
   - id: 3
     type: 3
-    itemIcon: {fileID: 21300000, guid: ba4749a60743a6247b0bd12464a33bba, type: 3}
-    handItemPrefab: {fileID: 2272680608920974672, guid: 5dffc93fefccaec43bbd020158da2a45,
-      type: 3}
-    toolTip: {fileID: 7758787326177395968, guid: 4e6a30f2a2f13574ea24ada743f951b5,
+    itemIcon: {fileID: 0}
+    handItemPrefab: {fileID: 0}
+    toolTip: {fileID: 7758787326177395968, guid: 8e89c767339a3b944a49da637517a529,
       type: 3}
   GameInteractables:
   - id: 0
