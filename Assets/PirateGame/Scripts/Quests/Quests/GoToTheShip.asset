@@ -15,11 +15,11 @@ MonoBehaviour:
   questTitle: Go to the Ship
   questDescription: Reach the ship
   id: 1
-  status: 2
+  status: 0
   areaList:
-  - areaReached: 1
+  - areaReached: 0
     areaName: Area[1]
-  - areaReached: 1
+  - areaReached: 0
     areaName: Area[2]
-  - areaReached: 1
+  - areaReached: 0
     areaName: Area[3]

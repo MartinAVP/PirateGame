@@ -9,6 +9,8 @@ public class CannonBall : MonoBehaviour
     [SerializeField] public int damage = 50;
     [HideInInspector] public CannonHitRegister cannonHit;
 
+    public GameObject effect;
+
     public UnityEvent hitShip;
     private void Start()
     {
@@ -21,9 +23,15 @@ public class CannonBall : MonoBehaviour
         {
             cannonHit.cannonBallHitTarget();
             collision.transform.parent.parent.GetComponent<ShipManager>().takeDamage(damage);
-            hitShip.Invoke();
         }
+        hitShip.Invoke();
+
         DestroyProjectile();
+    }
+
+    public void triggerEffects()
+    {
+        Instantiate(effect, this.transform.position, Quaternion.identity);
     }
 
     private IEnumerator lifetime()
