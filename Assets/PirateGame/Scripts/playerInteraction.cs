@@ -62,13 +62,15 @@ public class playerInteraction : MonoBehaviour
             // Item is the same as the one already being held
             if(type == currentItemInHand)
             {
+                Destroy(itemHeld);
+                hasItemInHand = false;
                 return;
             }
             // Item is a different Item than the one already in hand
             else
             {
                 // The Player clicked on an empty Slot
-                if(type == ItemType.None) { Destroy(itemHeld); return; }
+                if(type == ItemType.None) { Destroy(itemHeld); hasItemInHand = false; return; }
 
                 Destroy(itemHeld);
                 itemHeld = Instantiate(gameAssets.FindItemTypeData(type).handItemPrefab, handItemPos.position, handItemPos.transform.rotation);

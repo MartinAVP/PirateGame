@@ -14,6 +14,7 @@ public class PlayerQuestTracker : MonoBehaviour
     private PlayerInventoryManager inventoryManager;
     private PlayerUIQuestManager playerUIQuestManager;
     private PlayerAnnouncementManager playerAnnouncementManager;
+    private playerMoneyManager moneyManager;
 
     public UnityEvent newQuest;
 
@@ -34,6 +35,8 @@ public class PlayerQuestTracker : MonoBehaviour
         inventoryManager = GetComponent<PlayerInventoryManager>();
         playerUIQuestManager = GetComponent<PlayerUIQuestManager>();
         playerAnnouncementManager = GetComponent<PlayerAnnouncementManager>();
+        //moneyManager = this.transform.GetChild(4).GetComponent<playerMoneyManager>();
+        moneyManager = GetComponentInChildren<playerMoneyManager>();
 
         //availablequests = new List<Quest>();
         completedQuests = new List<Quest>();
@@ -273,7 +276,24 @@ public class PlayerQuestTracker : MonoBehaviour
         startedQuests.Remove(quest);
 
         GetComponent<PlayerUIQuestManager>().completeQuest(quest);
+        if (quest == availablequests[availablequests.Count - 1])
+        {
+            //playerAnnouncementManager.addAnnouncementQueued(availablequests[availablequests.Count - 1].questTitle, "Completed", PlayerAnnouncementManager.questBannerType.Raid, availablequests[availablequests.Count - 1]);
+            moneyManager.addMoney(300);
+            FindAnyObjectByType<MainSceneManager>().EndScene();
+            return;
+        }
         playerAnnouncementManager.addAnnouncementQueued(quest.questTitle, "Completed", PlayerAnnouncementManager.questBannerType.MerchantAlliance, quest);
+
+        if(quest == availablequests[0])
+        {
+            moneyManager.addMoney(100);
+        }
+
+        if(quest == availablequests[1])
+        {
+            moneyManager.addMoney(150);
+        }
     }
 
 /*    private void OnGUI()
@@ -293,6 +313,13 @@ public class PlayerQuestTracker : MonoBehaviour
         GetComponent<PlayerUIQuestManager>().newQuest(availablequests[id]);
         //newQuest.Invoke();
         checkInventory();
+
+        if(id == availablequests.Count - 1)
+        {
+            playerAnnouncementManager.addAnnouncementQueued(availablequests[id].questTitle, availablequests[id].questDescription, PlayerAnnouncementManager.questBannerType.Raid, availablequests[id]);
+            FindAnyObjectByType<MainSceneManager>().riseShips();
+            return;
+        }
 
         playerAnnouncementManager.addAnnouncementQueued(availablequests[id].questTitle, availablequests[id].questDescription, PlayerAnnouncementManager.questBannerType.MerchantAlliance, availablequests[id]);
     }

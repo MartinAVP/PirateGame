@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class cannonController : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class cannonController : MonoBehaviour
     private bool hasPlayerSnapped = false;
 
     private bool canShoot = true;
+
+    public UnityEvent onShoot;
 
     // mouseSettings;
     float cameraCap;
@@ -155,7 +158,10 @@ public class cannonController : MonoBehaviour
         shotFired.GetComponent<CannonBall>().cannonHit = FindObjectOfType<CannonHitRegister>();
 
         // adds the Force to the cannon Ball.
-        shotFired.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back * 30f, ForceMode.Impulse);
+        shotFired.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back * 50f, ForceMode.Impulse);
         shotFired.GetComponent<Rigidbody>().AddForce(Vector3.up * 2f, ForceMode.Impulse);
+
+        // Invoke Event for Shooting
+        onShoot.Invoke();
     }
 }

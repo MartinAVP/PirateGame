@@ -14,6 +14,11 @@ public class PlayerUIManager : MonoBehaviour
     [HideInInspector] public Transform containerInventory;
     [HideInInspector] public Transform quests;
     [HideInInspector] public Transform announcements;
+    [HideInInspector] public Transform blackScreen;
+
+    // Money Displayer
+    [HideInInspector] public Transform mainMoneyLog;
+    [HideInInspector] public Transform mainMoneyLogContent;
 
     // Container Positions
     [HideInInspector] public Transform containerPlayerInventorySlots;
@@ -58,10 +63,23 @@ public class PlayerUIManager : MonoBehaviour
                 quests = canvasChild;
             else if (canvasChild.name == "Announcement")
                 announcements = canvasChild;
+            else if (canvasChild.name == "BlackScreen")
+                blackScreen = canvasChild;
+        }
+
+        // Find Main Layout Positions
+        foreach (Transform mainChildren in mainLayout)
+        {
+            if (mainChildren.name == "MoneyDisplayer")
+            {
+                mainMoneyLog = mainChildren;
+                mainMoneyLogContent = mainChildren.GetChild(0).GetChild(0);
+            }
+                
         }
 
         // Find the Container Positions
-        foreach(Transform containerInventoryChild in containerInventory)
+        foreach (Transform containerInventoryChild in containerInventory)
         {
             if(containerInventoryChild.name == "PlayerInventorySlots")
                 containerPlayerInventorySlots = containerInventoryChild;
@@ -149,13 +167,13 @@ public class PlayerUIManager : MonoBehaviour
         DisableCursor();
     }
 
-    private void EnableCursor()
+    public void EnableCursor()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
-    private void DisableCursor()
+    public void DisableCursor()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

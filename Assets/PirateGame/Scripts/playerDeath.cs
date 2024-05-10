@@ -7,7 +7,7 @@ public class playerDeath : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startOrientation;
 
-    [SerializeField] private int playerHeight = 0;
+    [SerializeField] private float playerHeight = 0;
 
     private void Awake()
     {
@@ -15,13 +15,18 @@ public class playerDeath : MonoBehaviour
         startOrientation = transform.rotation;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if(transform.position.y <= playerHeight)
         {
-            print("Out of Bounds");
-            this.transform.position = startPosition;
-            this.transform.rotation = startOrientation;
+            respawn();
         }
+    }
+
+    public void respawn()
+    {
+        print("Out of Bounds");
+        this.transform.position = startPosition;
+        this.transform.rotation = startOrientation;
     }
 }

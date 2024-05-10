@@ -130,6 +130,12 @@ public class PlayerInventoryManager : MonoBehaviour
                 Destroy(playerInt.checkObject().gameObject);
                 return;
             }
+            if (playerInt.checkObject().GetComponent<PickUpItem>().itemType == ItemType.Coin)
+            {
+                FindAnyObjectByType<playerMoneyManager>().addMoney(10);
+                Destroy(playerInt.checkObject().gameObject);
+                return;
+            }
             addItem(playerInt.checkObject().GetComponent<PickUpItem>().itemType);
             playerContainerInv.RefreshInventory();
             Destroy(playerInt.checkObject().gameObject);

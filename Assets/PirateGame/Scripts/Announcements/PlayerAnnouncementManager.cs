@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAnnouncementManager : MonoBehaviour
+
 {
     public PlayerUIManager ui;
     public PlayerQuestTracker quests;
@@ -20,9 +22,15 @@ public class PlayerAnnouncementManager : MonoBehaviour
     public AudioClip merchantAllianceStart;
     public AudioClip merchantAllianceComplete;
 
+    public Sprite merchantAllianceTopBar;
+    public Sprite merchantAllianceBottomBar;
+
     // Raid
     public AudioClip raidStart;
     public AudioClip raidComplete;
+
+    public Sprite raidTopBar;
+    public Sprite raidBottomBar;
 
     private void Awake()
     {
@@ -61,6 +69,19 @@ public class PlayerAnnouncementManager : MonoBehaviour
 
         ui.announcementTopText.GetComponent<TextMeshProUGUI>().text = announcementsQueued[0].topText;
         ui.announcementBottomText.GetComponent<TextMeshProUGUI>().text = announcementsQueued[0].bottomText;
+
+        if (announcementsQueued[0].bannerType == questBannerType.MerchantAlliance)
+        {
+            ui.announcementTopText.transform.parent.GetComponent<Image>().sprite = merchantAllianceTopBar;
+            ui.announcementBottomText.transform.parent.GetComponent<Image>().sprite = merchantAllianceBottomBar;
+        }
+
+        if (announcementsQueued[0].bannerType == questBannerType.Raid)
+        {
+            ui.announcementTopText.transform.parent.GetComponent<Image>().sprite = raidTopBar;
+            ui.announcementBottomText.transform.parent.GetComponent<Image>().sprite = raidBottomBar;
+        }
+
         playSound(announcementsQueued[0].bannerType, announcementsQueued[0].quest.status);
 
         animator.SetBool("enable", true);
