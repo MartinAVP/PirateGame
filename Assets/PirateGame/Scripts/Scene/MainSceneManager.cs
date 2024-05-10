@@ -133,7 +133,7 @@ public class MainSceneManager : MonoBehaviour
 
     }
 
-    private void OnGUI()
+/*    private void OnGUI()
     {
         if(GUILayout.Button("End Scene"))
         {
@@ -164,7 +164,7 @@ public class MainSceneManager : MonoBehaviour
         {
             cleanScores();
         }
-    }
+    }*/
 
     // Scoreding
 
