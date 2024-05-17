@@ -15,7 +15,7 @@ MonoBehaviour:
   questTitle: Sink Roaming Ships
   questDescription: Sink all the moving ships, use the cannons
   id: 2
-  status: 1
+  status: 0
   shipsToSink: 3
   shipsSunk: 0
   shipTag: CannonTarget

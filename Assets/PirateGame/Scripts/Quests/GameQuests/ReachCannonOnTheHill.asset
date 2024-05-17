@@ -15,7 +15,7 @@ MonoBehaviour:
   questTitle: Lonely Cannon
   questDescription: Reach the Cannon on the Mountain
   id: 1
-  status: 2
+  status: 0
   areaList:
-  - areaReached: 1
+  - areaReached: 0
     areaName: '[A] LonelyCannon'
